@@ -2,6 +2,7 @@ package br.com.cubos.apirest.apirest.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -9,7 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ControllerTest {
 
     @GetMapping
-    public String Test(){
-        return "Tudo ok, Hello word, codigo rodando";
+    public String Hello(){
+        return "Rodando tudo certo, OK";
+    }
+
+    @GetMapping("soma")
+    public double Som(@RequestParam double a , @RequestParam double b){
+        return a + b;
     }
 }
