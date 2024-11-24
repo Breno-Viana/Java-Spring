@@ -6,16 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import br.com.apirest.ApiRestAPP.Models.Product;
 import br.com.apirest.ApiRestAPP.Repositories.ProductRespository;
 import br.com.apirest.ApiRestAPP.Utils.ResponseDrops;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/products")
@@ -32,32 +27,63 @@ public class ProductController {
     private ProductRespository productRespository;
 
     // exibir coleção de produtos
-    @GetMapping("/Listar")
+    @GetMapping("/listar")
     public List<Product> ListProduct() {
         return productRespository.findAll();
     }
 
     // obter algo pelo id
-    @GetMapping("/Obter/{id}")
+    @GetMapping("/obter/{id}")
     public ResponseEntity<Object> GetProduct(@PathVariable Integer id) {
         Optional<Product> product = productRespository.findById(id);
 
-        return !product.isPresent() ? ResponseDrops.GenerateMensages("Produto não encontrado", HttpStatus.NOT_FOUND)
+        return !product.isPresent() ? ResponseDrops.GenerateMessages("Produto não encontrado", HttpStatus.NOT_FOUND)
                 : new ResponseEntity<Object>(product.get(), HttpStatus.OK);
 
     }
 
     // adicionar produto
-    @PostMapping
-    public ResponseEntity<Object> AddProduct(@RequestBody Product product) {
-
-        if (product.getName() == null || product.getPrice() == null) {
-            return ResponseDrops.GenerateMensages("ERROR: Nome ou preço nao inseridos", HttpStatus.BAD_REQUEST);
-        }
+    @PostMapping("/postar")
+    public ResponseEntity<Object> AddProduct(@RequestBody @Valid Product product) {
 
         Product newProduct = productRespository.save(product);
 
         return new ResponseEntity<Object>(newProduct, HttpStatus.CREATED);
     }
 
+    // editar produto
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Object> EditUpdate(@PathVariable Integer id, @RequestBody @Valid Product product) {
+
+        Optional<Product> OldProduct = productRespository.findById(id);
+
+        if (!OldProduct.isPresent()) {
+            return ResponseDrops.GenerateMessages("Produto não encontrado", HttpStatus.NOT_FOUND);
+        }
+       
+        Product ProductUptdate = OldProduct.get();
+        ProductUptdate.setName(product.getName());
+        ProductUptdate.setPrice(product.getPrice());
+        ProductUptdate.setDescription(product.getDescription());
+
+        productRespository.save(ProductUptdate);
+        return ResponseEntity.noContent().build();
+
+    }
+
+
+    @DeleteMapping("/del/{id}")
+    public ResponseEntity<Object> DeleteProduct(@PathVariable Integer id){
+
+        Optional<Product> OldProduct = productRespository.findById(id);
+        if (!OldProduct.isPresent()) {
+            return ResponseDrops.GenerateMessages("Produto nao encontrado", HttpStatus.NOT_FOUND);
+        }
+
+        Product product = OldProduct.get();
+        productRespository.delete(OldProduct.get());
+        return ResponseDrops.GenerateMessages("Produto "+product.getName()+" deletado", HttpStatus.ACCEPTED);
+        
+
+    }
 }
