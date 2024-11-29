@@ -2,7 +2,6 @@ package br.com.apirest.ApiRestAPP.Controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,7 +66,7 @@ public class ProductController {
         ProductUptdate.setDescription(product.getDescription());
 
         productRespository.save(ProductUptdate);
-        return ResponseEntity.noContent().build();
+        return ResponseDrops.GenerateMessages("Produto Alterado Com Sucesso", HttpStatus.CREATED);
 
     }
 
@@ -84,6 +83,22 @@ public class ProductController {
         productRespository.delete(OldProduct.get());
         return ResponseDrops.GenerateMessages("Produto "+product.getName()+" deletado", HttpStatus.ACCEPTED);
         
+
+    }
+
+    @PutMapping("/edit/desc/{id}")
+    public ResponseEntity<Object> EditDescription(@PathVariable Integer id, @RequestBody Product product){
+        Optional<Product> OldProduct = productRespository.findById(id);
+        if (!OldProduct.isPresent()) {
+            return ResponseDrops.GenerateMessages("Produto não encontrado", HttpStatus.BAD_REQUEST);
+        }
+
+      
+        
+        Product product2 = OldProduct.get();
+        product2.setDescription(product.getDescription());
+        productRespository.save(product2);
+        return ResponseDrops.GenerateMessages("Descrição do "+OldProduct.get().getName()+" alterada", HttpStatus.ACCEPTED);
 
     }
 }

@@ -1,5 +1,7 @@
 package br.com.apirest.ApiRestAPP.Models;
 
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +36,8 @@ public class Product {
     @Setter
     @Column()
     private String description;
+
+  
 
     //@Email
     //@CPF
