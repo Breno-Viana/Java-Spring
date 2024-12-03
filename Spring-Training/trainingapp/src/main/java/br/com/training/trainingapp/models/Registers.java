@@ -1,18 +1,19 @@
 package br.com.training.trainingapp.models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
+import br.com.training.trainingapp.services.others.utils.UserSituation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +36,7 @@ public class Registers {
     @NotBlank(message = "nao deixe esse campo em branco")
     @Getter
     @Setter
+    @Min(11)
     private String identifier;
 
     @Column(nullable = false)
@@ -58,6 +60,11 @@ public class Registers {
     @Getter
     @Setter
     private LocalTime updateTime;
+
+    @Getter
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    UserSituation userSituation;
 
     @PrePersist
     public void whenCreated() {
