@@ -9,22 +9,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import br.com.training.trainingapp.models.Registers;
 import br.com.training.trainingapp.repository.RepositoryForService;
+import br.com.training.trainingapp.services.others.utils.Check;
 import br.com.training.trainingapp.services.others.utils.CustomResponse;
+import br.com.training.trainingapp.services.others.utils.UserSituation;
 
 @Service
 public class RegisterService {
 
     @Autowired
     private RepositoryForService repository;
- 
 
+    @Autowired
+    private Check check;
 
     public List<Registers> ListRegisters() {
         return repository.findAll();
     }
-   
 
     public ResponseEntity<Registers> newCreation(Registers register) {
+
+        if (check.CheckDuplicate(register)) {
+            return new CustomResponse().getMessage("o usuario " + register.getUserName() + " ja existe",
+                    HttpStatus.BAD_REQUEST);
+        }
         repository.save(register);
         return new CustomResponse().getMessage("Baixa no registro", HttpStatus.CREATED);
     }
@@ -59,20 +66,49 @@ public class RegisterService {
     public ResponseEntity<Registers> getBYId(Long id) {
         Optional<Registers> optional = repository.findById(id);
         return !optional.isPresent() ? new CustomResponse().getMessage("Produto nao encontrado", HttpStatus.BAD_REQUEST)
-                : new CustomResponse().getMessage(optional.get(),HttpStatus.ACCEPTED);
+                : new CustomResponse().getMessage(optional.get(), HttpStatus.ACCEPTED);
 
     }
 
-
-
-    public ResponseEntity<Registers> delAllByName(String name){
-        List<Registers> ids = new ArrayList<>();  
+    public ResponseEntity<Registers> delAllByName(String name) {
+        List<Registers> ids = new ArrayList<>();
         for (Registers registers : repository.findAll()) {
             if (registers.getUserName().equals(name)) {
                 ids.add(registers);
             }
         }
         repository.deleteAll(ids);
-        return new CustomResponse().getMessage("delets",HttpStatus.ALREADY_REPORTED );
+        return new CustomResponse().getMessage("delets", HttpStatus.ALREADY_REPORTED);
     }
+
+    public ResponseEntity<Registers> UpdateSituation(Long id, char situacao) {
+        Optional<Registers> opt = repository.findById(id);
+        if (!opt.isPresent()) {
+            return new CustomResponse().getMessage("Registro nao encontrado", HttpStatus.BAD_REQUEST);
+        }
+        UserSituation actualSituation;
+        Registers register = opt.get();
+
+        switch (situacao) {
+            case 'A' -> {
+                actualSituation = UserSituation.ATIVADO;
+            }
+            case 'D' -> {
+                actualSituation = UserSituation.DESATIVADO;
+            }
+            case 'P' -> {
+                actualSituation = UserSituation.PENDENTE;
+            }
+            default -> {
+                return new CustomResponse().getMessage("Situacao nâo permitida", HttpStatus.BAD_REQUEST);
+            }
+        }
+        register.setUserSituation(actualSituation);
+        repository.save(register);
+        register = null;
+        return new CustomResponse().getMessage(
+                "Situação do usuario " + opt.get().getUserName() + " alterada para " + opt.get().getUserSituation(),
+                HttpStatus.ACCEPTED);
+    }
+
 }

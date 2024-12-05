@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +35,12 @@ public class RegisterController {
          return registerService.newCreation(register);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/edit/admin/{id}")
     public ResponseEntity<Registers> Edit(@PathVariable Long id, @RequestBody @Valid Registers register) {
         return registerService.newEdit(id, register);
     }
 
-    @DeleteMapping("/delete/id/{id}")
+    @DeleteMapping("/delete/admin/id/{id}")
     public ResponseEntity<Registers> Delet(@PathVariable Long id){
         return registerService.newDelet(id);
     }
@@ -49,8 +50,15 @@ public class RegisterController {
         return registerService.getBYId(id);
     }
 
-    @DeleteMapping("/delete/name/{name}")
+    @DeleteMapping("/delete/admin/{name}")
     public ResponseEntity<Registers> d(@PathVariable String name){
         return registerService.delAllByName(name);
+    }
+
+
+    @PutMapping("/edit/admin/situacao/{id}/{situation}")
+    @ResponseBody
+    public ResponseEntity<Registers> uptSituation(@PathVariable Long id, @PathVariable char situation){
+        return registerService.UpdateSituation(id, situation);
     }
 }

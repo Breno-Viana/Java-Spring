@@ -62,9 +62,10 @@ public class Registers {
     private LocalTime updateTime;
 
     @Getter
+    @Setter
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    UserSituation userSituation;
+    UserSituation userSituation = UserSituation.PENDENTE;
 
     @PrePersist
     public void whenCreated() {

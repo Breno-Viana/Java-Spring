@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonFormat(shape = JsonFormat.Shape.STRING)
 public enum UserSituation {
-    ATIVO('A'),
-    DESATIVO('D'),
+    ATIVADO('A'),
+    DESATIVADO('D'),
     PENDENTE('P');
 
     private char code;
