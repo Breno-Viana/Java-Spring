@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -111,4 +112,37 @@ public class RegisterService {
                 HttpStatus.ACCEPTED);
     }
 
+    public ResponseEntity<Registers> getCount() {
+        Long cont = repository.count();
+        return new CustomResponse().getMessage("Total de registros => " + cont, HttpStatus.ACCEPTED);
+    }
+
+    public ResponseEntity<Registers> getCount(char c) {
+       int returned = 0;
+        UserSituation us;
+        String st;
+        switch (c) {
+            case 'A' -> {
+                us = UserSituation.ATIVADO;
+                st = "ativados";
+            }
+            case 'D' -> {
+                us = UserSituation.DESATIVADO;
+                st = "desativados";
+            }
+            case 'P' -> {
+                us = UserSituation.PENDENTE;
+                st = "pendentes";
+            }
+            default -> {
+                return new CustomResponse().getMessage("Situacao nâo permitida", HttpStatus.BAD_REQUEST);
+            }
+        }
+        for (Registers register : repository.findAll()) {
+            if (register.getUserSituation() == us) {
+                returned++;
+            }
+        }
+        return new CustomResponse().getMessage("O total de registros "+st+" são => "+ returned,HttpStatus.ACCEPTED);
+    }
 }

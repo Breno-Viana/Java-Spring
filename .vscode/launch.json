@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TrainingappApplication<trainingapp>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.com.training.trainingapp.TrainingappApplication",
+            "projectName": "trainingapp",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiRestAppApplication<ApiRestAPP>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.com.apirest.ApiRestAPP.ApiRestAppApplication",
+            "projectName": "ApiRestAPP",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

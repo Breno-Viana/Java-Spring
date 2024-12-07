@@ -14,7 +14,6 @@ import br.com.training.trainingapp.models.*;
 @Component
 public class Check {
 
-
     @Autowired
     RepositoryForService repository;
 

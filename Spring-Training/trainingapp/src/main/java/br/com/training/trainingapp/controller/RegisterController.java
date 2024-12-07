@@ -55,10 +55,18 @@ public class RegisterController {
         return registerService.delAllByName(name);
     }
 
-
     @PutMapping("/edit/admin/situacao/{id}/{situation}")
-    @ResponseBody
     public ResponseEntity<Registers> uptSituation(@PathVariable Long id, @PathVariable char situation){
         return registerService.UpdateSituation(id, situation);
+    }
+
+    @GetMapping("/registers/cont")
+    public ResponseEntity<Registers> Cont(){
+        return registerService.getCount();
+    }
+
+    @GetMapping("/registers/cont/st/{c}")
+    public ResponseEntity<Registers> Cont(@PathVariable char c){
+        return registerService.getCount(c);
     }
 }
