@@ -70,8 +70,15 @@ public class RegisterController {
         return registerService.getCount(c);
     }
 
-    @PutMapping("desativar")
+    @PutMapping("admin/desativar")
     public ResponseEntity<Registers> dEntity(){
         return registerService.desativeAll();
     }
+
+    @PutMapping("admin/ativar")
+    public ResponseEntity<Registers> aEntity(){
+        return registerService.activeAll();
+    }
+
+    
 }

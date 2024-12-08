@@ -157,4 +157,14 @@ public class RegisterService {
         return new CustomResponse().getMessage("Todos perfis desativados", HttpStatus.ACCEPTED);
     }
 
+    public ResponseEntity<Registers> activeAll(){
+        List<Registers> listA = repository.findAll();
+        for (Registers registers : listA) {
+            registers.setUserSituation(UserSituation.ATIVADO);
+            repository.save(registers);
+        }
+        return new CustomResponse().getMessage("Todos perfis ativados", HttpStatus.OK);
+
+    }
+
 }
