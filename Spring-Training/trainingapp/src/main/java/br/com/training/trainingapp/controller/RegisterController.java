@@ -17,56 +17,61 @@ import jakarta.validation.Valid;
 import java.util.*;
 
 @RestController
-@RequestMapping("/registro")
+@RequestMapping("/")
 public class RegisterController {
 
     @Autowired
     RegisterService registerService;
 
 
-    @GetMapping("/pegar/listar")
+    @GetMapping("pegar/listar")
     public List<Registers> ListReg() {
         return registerService.ListRegisters();
     }
  
 
-    @PostMapping("/registrar")
+    @PostMapping("registrar")
     public ResponseEntity<Registers> AddRegister(@RequestBody @Valid Registers register) {
          return registerService.newCreation(register);
     }
 
-    @PutMapping("/edit/admin/{id}")
+    @PutMapping("edit/admin/{id}")
     public ResponseEntity<Registers> Edit(@PathVariable Long id, @RequestBody @Valid Registers register) {
         return registerService.newEdit(id, register);
     }
 
-    @DeleteMapping("/delete/admin/id/{id}")
+    @DeleteMapping("delete/admin/id/{id}")
     public ResponseEntity<Registers> Delet(@PathVariable Long id){
         return registerService.newDelet(id);
     }
 
-    @GetMapping("/pegar/{id}")
+    @GetMapping("pegar/{id}")
     public ResponseEntity<Registers> newGRegisters(@PathVariable Long id){
         return registerService.getBYId(id);
     }
 
-    @DeleteMapping("/delete/admin/{name}")
+    @DeleteMapping("delete/admin/{name}")
     public ResponseEntity<Registers> d(@PathVariable String name){
         return registerService.delAllByName(name);
     }
 
-    @PutMapping("/edit/admin/situacao/{id}/{situation}")
+    @PutMapping("edit/admin/situacao/{id}/{situation}")
     public ResponseEntity<Registers> uptSituation(@PathVariable Long id, @PathVariable char situation){
         return registerService.UpdateSituation(id, situation);
     }
 
-    @GetMapping("/registers/cont")
+    @GetMapping("registers/cont")
     public ResponseEntity<Registers> Cont(){
         return registerService.getCount();
     }
 
-    @GetMapping("/registers/cont/st/{c}")
+    @GetMapping("registers/cont/st/{c}")
     public ResponseEntity<Registers> Cont(@PathVariable char c){
         return registerService.getCount(c);
+    }
+
+    @PutMapping("desativar")
+    public ResponseEntity<Registers> dEntity(){
+        return registerService.desativeAll();
     }
 }

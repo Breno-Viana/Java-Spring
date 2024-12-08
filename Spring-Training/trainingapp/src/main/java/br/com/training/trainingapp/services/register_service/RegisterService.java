@@ -118,7 +118,7 @@ public class RegisterService {
     }
 
     public ResponseEntity<Registers> getCount(char c) {
-       int returned = 0;
+        int returned = 0;
         UserSituation us;
         String st;
         switch (c) {
@@ -143,6 +143,18 @@ public class RegisterService {
                 returned++;
             }
         }
-        return new CustomResponse().getMessage("O total de registros "+st+" são => "+ returned,HttpStatus.ACCEPTED);
+        return new CustomResponse().getMessage("O total de registros " + st + " são => " + returned,
+                HttpStatus.ACCEPTED);
     }
+
+    public ResponseEntity<Registers> desativeAll() {
+        List<Registers> listD = repository.findAll();
+        for (Registers registers : listD) {
+            registers.setUserSituation(UserSituation.DESATIVADO);
+            repository.save(registers);
+        }
+
+        return new CustomResponse().getMessage("Todos perfis desativados", HttpStatus.ACCEPTED);
+    }
+
 }
