@@ -28,6 +28,7 @@ public class RegisterController {
     public List<Registers> ListReg() {
         return registerService.ListRegisters();
     }
+
  
 
     @PostMapping("registrar")
@@ -48,6 +49,11 @@ public class RegisterController {
     @GetMapping("pegar/{id}")
     public ResponseEntity<Registers> newGRegisters(@PathVariable Long id){
         return registerService.getBYId(id);
+    }
+
+    @GetMapping("pegar/email/{email}")
+    public ResponseEntity<Registers> email(@PathVariable String email){
+        return registerService.findEmail(email);
     }
 
     @DeleteMapping("delete/admin/{name}")

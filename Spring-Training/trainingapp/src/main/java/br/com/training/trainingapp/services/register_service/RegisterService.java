@@ -55,7 +55,7 @@ public class RegisterService {
 
     public ResponseEntity<Registers> newDelet(Long id) {
         Optional<Registers> regisOptional = repository.findById(id);
-        if (!regisOptional.isPresent()) {
+        if (regisOptional.isEmpty()) {
             return new CustomResponse().getMessage("Usuario nao encontrado", HttpStatus.BAD_REQUEST);
         }
         Registers registers = regisOptional.get();
@@ -66,7 +66,7 @@ public class RegisterService {
 
     public ResponseEntity<Registers> getBYId(Long id) {
         Optional<Registers> optional = repository.findById(id);
-        return !optional.isPresent() ? new CustomResponse().getMessage("Produto nao encontrado", HttpStatus.BAD_REQUEST)
+        return optional.isEmpty() ? new CustomResponse().getMessage("Produto nao encontrado", HttpStatus.BAD_REQUEST)
                 : new CustomResponse().getMessage(optional.get(), HttpStatus.ACCEPTED);
 
     }
@@ -166,5 +166,17 @@ public class RegisterService {
         return new CustomResponse().getMessage("Todos perfis ativados", HttpStatus.OK);
 
     }
+
+
+    public ResponseEntity<Registers> findEmail(String email){
+        Optional<Registers> opt = repository.findByemail(email);
+        if (opt.isEmpty()){
+            return new CustomResponse().getMessage("registro nao encontrado", HttpStatus.BAD_REQUEST);
+        }
+
+        return new CustomResponse().getMessage(opt.get(),HttpStatus.ACCEPTED);
+    }
+
+
 
 }
