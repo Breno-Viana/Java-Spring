@@ -84,7 +84,7 @@ public class RegisterService {
 
     public ResponseEntity<Registers> UpdateSituation(Long id, char situacao) {
         Optional<Registers> opt = repository.findById(id);
-        if (!opt.isPresent()) {
+        if (opt.isEmpty()) {
             return new CustomResponse().getMessage("Registro nao encontrado", HttpStatus.BAD_REQUEST);
         }
         UserSituation actualSituation;
