@@ -92,8 +92,6 @@ public class ProductController {
         if (!OldProduct.isPresent()) {
             return ResponseDrops.GenerateMessages("Produto não encontrado", HttpStatus.BAD_REQUEST);
         }
-
-      
         
         Product product2 = OldProduct.get();
         product2.setDescription(product.getDescription());

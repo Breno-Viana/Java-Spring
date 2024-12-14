@@ -10,18 +10,18 @@ public enum UserSituation {
     DESATIVADO('D'),
     PENDENTE('P');
 
-    private char code;
+    private final char code;
 
-    private UserSituation(char code) {
+    UserSituation(char code) {
         // TODO Auto-generated constructor stub
         this.code = code;
     }
 
     @JsonCreator
     public UserSituation fromCode(char code) {
-        for (UserSituation coode : UserSituation.values()) {
-            if (code == coode.code) {
-                return coode;
+        for (UserSituation cod : UserSituation.values()) {
+            if (code == cod.code) {
+                return cod;
             }
         }
         throw new IllegalArgumentException("Illegal Code");
