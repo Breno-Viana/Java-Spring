@@ -36,7 +36,7 @@ public class ProductController {
     public ResponseEntity<Object> GetProduct(@PathVariable Integer id) {
         Optional<Product> product = productRespository.findById(id);
 
-        return !product.isPresent() ? ResponseDrops.GenerateMessages("Produto não encontrado", HttpStatus.NOT_FOUND)
+        return product.isEmpty() ? ResponseDrops.GenerateMessages("Produto não encontrado", HttpStatus.NOT_FOUND)
                 : new ResponseEntity<Object>(product.get(), HttpStatus.OK);
 
     }
@@ -56,7 +56,7 @@ public class ProductController {
 
         Optional<Product> OldProduct = productRespository.findById(id);
 
-        if (!OldProduct.isPresent()) {
+        if (OldProduct.isEmpty()) {
             return ResponseDrops.GenerateMessages("Produto não encontrado", HttpStatus.NOT_FOUND);
         }
        
@@ -75,7 +75,7 @@ public class ProductController {
     public ResponseEntity<Object> DeleteProduct(@PathVariable Integer id){
 
         Optional<Product> OldProduct = productRespository.findById(id);
-        if (!OldProduct.isPresent()) {
+        if (OldProduct.isEmpty()) {
             return ResponseDrops.GenerateMessages("Produto nao encontrado", HttpStatus.NOT_FOUND);
         }
 
@@ -89,7 +89,7 @@ public class ProductController {
     @PutMapping("/edit/desc/{id}")
     public ResponseEntity<Object> EditDescription(@PathVariable Integer id, @RequestBody Product product){
         Optional<Product> OldProduct = productRespository.findById(id);
-        if (!OldProduct.isPresent()) {
+        if (OldProduct.isEmpty()) {
             return ResponseDrops.GenerateMessages("Produto não encontrado", HttpStatus.BAD_REQUEST);
         }
         
