@@ -1,4 +1,4 @@
-package br.com.training.trainingapp.services.others.utils;
+package br.com.training.trainingapp.utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package br.com.training.trainingapp.services.others.utils;
+package br.com.training.trainingapp.utils;
 
 import java.util.*;
 

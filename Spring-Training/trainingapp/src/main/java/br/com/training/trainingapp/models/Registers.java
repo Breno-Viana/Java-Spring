@@ -2,7 +2,7 @@ package br.com.training.trainingapp.models;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import br.com.training.trainingapp.services.others.utils.UserSituation;
+import br.com.training.trainingapp.utils.UserSituation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

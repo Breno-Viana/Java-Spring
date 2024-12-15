@@ -1,18 +1,17 @@
-package br.com.training.trainingapp.services.register_service;
+package br.com.training.trainingapp.services;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import br.com.training.trainingapp.models.Registers;
 import br.com.training.trainingapp.repository.RepositoryForService;
-import br.com.training.trainingapp.services.others.utils.Check;
-import br.com.training.trainingapp.services.others.utils.CustomResponse;
-import br.com.training.trainingapp.services.others.utils.UserSituation;
+import br.com.training.trainingapp.utils.Check;
+import br.com.training.trainingapp.utils.CustomResponse;
+import br.com.training.trainingapp.utils.UserSituation;
 
 @Service
 public class RegisterService {
@@ -39,7 +38,7 @@ public class RegisterService {
 
     public ResponseEntity<Registers> newEdit(Long id, Registers register) {
         Optional<Registers> Old = repository.findById(id);
-        if (!Old.isPresent()) {
+        if (Old.isEmpty()) {
             return new CustomResponse().getMessage("Registro nao encontrado", HttpStatus.NOT_FOUND);
         }
 
@@ -113,7 +112,7 @@ public class RegisterService {
     }
 
     public ResponseEntity<Registers> getCount() {
-        Long cont = repository.count();
+        long cont = repository.count();
         return new CustomResponse().getMessage("Total de registros => " + cont, HttpStatus.ACCEPTED);
     }
 
