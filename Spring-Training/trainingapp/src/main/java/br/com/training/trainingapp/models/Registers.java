@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
-import br.com.training.trainingapp.dto.*;
+import br.com.training.trainingapp.dto.RegisterDto;
 import br.com.training.trainingapp.utils.UserSituation;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
