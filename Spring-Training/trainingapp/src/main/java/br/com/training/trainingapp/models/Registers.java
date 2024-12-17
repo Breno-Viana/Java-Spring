@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
-import br.com.training.trainingapp.dto.RegisterDto;
+import br.com.training.trainingapp.dto.*;
 import br.com.training.trainingapp.utils.UserSituation;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -39,11 +39,12 @@ public class Registers {
     @Setter
     private String userName;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT",nullable = false)
     @NotBlank(message = "nao deixe esse campo em branco")
     @Getter
     @Setter
     @Min(11)
+    @Lob
     private String identifier;
 
     @Column(nullable = false)
