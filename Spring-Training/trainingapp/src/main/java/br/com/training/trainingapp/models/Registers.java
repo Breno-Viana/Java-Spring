@@ -2,29 +2,36 @@ package br.com.training.trainingapp.models;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
+
+import br.com.training.trainingapp.dto.RegisterDto;
 import br.com.training.trainingapp.utils.UserSituation;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "registers_tb")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Registers {
+
+    public Registers(RegisterDto registerDto){
+        this.userName = registerDto.nome();
+        this.identifier = registerDto.identificador();
+        this.email = registerDto.Email();
+        this.userSituation = registerDto.situacao();
+    }
 
     @Id
     @Getter
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     @NotBlank(message = "Nao deixe esse campo em branco")
@@ -65,7 +72,7 @@ public class Registers {
     @Setter
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    UserSituation userSituation = UserSituation.PENDENTE;
+    UserSituation userSituation;
 
     @PrePersist
     public void whenCreated() {
@@ -85,13 +92,6 @@ public class Registers {
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUserName() {
         return userName;

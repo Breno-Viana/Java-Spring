@@ -1,5 +1,6 @@
 package br.com.training.trainingapp.controller;
 
+import br.com.training.trainingapp.dto.RegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,22 +32,22 @@ public class RegisterController {
  
 
     @PostMapping("registrar")
-    public ResponseEntity<Registers> AddRegister(@RequestBody @Valid Registers register) {
+    public ResponseEntity<Registers> AddRegister(@RequestBody @Valid RegisterDto register) {
          return registerService.newCreation(register);
     }
 
     @PutMapping("edit/admin/{id}")
-    public ResponseEntity<Registers> Edit(@PathVariable Long id, @RequestBody @Valid Registers register) {
+    public ResponseEntity<Registers> Edit(@PathVariable UUID id, @RequestBody @Valid RegisterDto register) {
         return registerService.newEdit(id, register);
     }
 
     @DeleteMapping("delete/admin/id/{id}")
-    public ResponseEntity<Registers> Delet(@PathVariable Long id){
+    public ResponseEntity<Registers> DeleteRegister(@PathVariable UUID id){
         return registerService.newDelet(id);
     }
 
     @GetMapping("pegar/{id}")
-    public ResponseEntity<Registers> newGRegisters(@PathVariable Long id){
+    public ResponseEntity<Registers> newGRegisters(@PathVariable UUID id){
         return registerService.getBYId(id);
     }
 
@@ -56,12 +57,12 @@ public class RegisterController {
     }
 
     @DeleteMapping("delete/admin/{name}")
-    public ResponseEntity<Registers> d(@PathVariable String name){
+    public ResponseEntity<Registers> deleteByName(@PathVariable String name){
         return registerService.delAllByName(name);
     }
 
     @PutMapping("edit/admin/situacao/{id}/{situation}")
-    public ResponseEntity<Registers> uptSituation(@PathVariable Long id, @PathVariable char situation){
+    public ResponseEntity<Registers> uptSituation(@PathVariable UUID id, @PathVariable char situation){
         return registerService.UpdateSituation(id, situation);
     }
 

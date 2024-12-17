@@ -5,8 +5,9 @@ import org.springframework.stereotype.Repository;
 import br.com.training.trainingapp.models.Registers;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface RepositoryForService extends JpaRepository<Registers,Long> {
+public interface RepositoryForService extends JpaRepository<Registers, UUID> {
     Optional<Registers> findByemail(String email);
 }

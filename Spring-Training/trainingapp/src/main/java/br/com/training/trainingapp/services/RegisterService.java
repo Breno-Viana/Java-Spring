@@ -3,6 +3,9 @@ package br.com.training.trainingapp.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
+import br.com.training.trainingapp.dto.RegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,33 +29,34 @@ public class RegisterService {
         return repository.findAll();
     }
 
-    public ResponseEntity<Registers> newCreation(Registers register) {
+    public ResponseEntity<Registers> newCreation(RegisterDto registerDto) {
+        Registers register = new Registers(registerDto);
 
-        if (check.CheckDuplicate(register)) {
-            return new CustomResponse().getMessage("o usuario " + register.getUserName() + " ja existe",
+        if (check.CheckDuplicate(register)) {//checa de maneira simples se um o email e o identificador esta duplicado de alguma forma no banco de dados, se qualquer um dos dois existir, o usuario nao podera ser cadastado;
+            return new CustomResponse().getMessage("o usuario " + registerDto.nome() + " ja existe",
                     HttpStatus.BAD_REQUEST);
         }
         repository.save(register);
+        register = null;
         return new CustomResponse().getMessage("Baixa no registro", HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Registers> newEdit(Long id, Registers register) {
+    public ResponseEntity<Registers> newEdit(UUID id, RegisterDto register) {
         Optional<Registers> Old = repository.findById(id);
         if (Old.isEmpty()) {
             return new CustomResponse().getMessage("Registro nao encontrado", HttpStatus.NOT_FOUND);
         }
 
         Registers newRegister = Old.get();
-        newRegister.setUserName(register.getUserName());
-        newRegister.setE_mail(register.getE_mail());
-        ;
-        newRegister.setIdentifier(register.getIdentifier());
+        newRegister.setUserName(register.nome());
+        newRegister.setE_mail(register.Email());
+        newRegister.setIdentifier(register.identificador());
         repository.save(newRegister);
 
         return new CustomResponse().getMessage("Registro Alterado com Exito", HttpStatus.ACCEPTED);
     }
 
-    public ResponseEntity<Registers> newDelet(Long id) {
+    public ResponseEntity<Registers> newDelet(UUID id) {
         Optional<Registers> regisOptional = repository.findById(id);
         if (regisOptional.isEmpty()) {
             return new CustomResponse().getMessage("Usuario nao encontrado", HttpStatus.BAD_REQUEST);
@@ -63,7 +67,7 @@ public class RegisterService {
                 HttpStatus.ACCEPTED);
     }
 
-    public ResponseEntity<Registers> getBYId(Long id) {
+    public ResponseEntity<Registers> getBYId(UUID id) {
         Optional<Registers> optional = repository.findById(id);
         return optional.isEmpty() ? new CustomResponse().getMessage("Produto nao encontrado", HttpStatus.BAD_REQUEST)
                 : new CustomResponse().getMessage(optional.get(), HttpStatus.ACCEPTED);
@@ -81,7 +85,7 @@ public class RegisterService {
         return new CustomResponse().getMessage("delets", HttpStatus.ALREADY_REPORTED);
     }
 
-    public ResponseEntity<Registers> UpdateSituation(Long id, char situacao) {
+    public ResponseEntity<Registers> UpdateSituation(UUID id, char situacao) {
         Optional<Registers> opt = repository.findById(id);
         if (opt.isEmpty()) {
             return new CustomResponse().getMessage("Registro nao encontrado", HttpStatus.BAD_REQUEST);
