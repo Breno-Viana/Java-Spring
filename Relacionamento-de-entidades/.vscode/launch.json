@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RelacionamentoEntidadeApplication<relacionamento_entidade>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.relacionamento.relacionamento_entidade.RelacionamentoEntidadeApplication",
+            "projectName": "relacionamento_entidade",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
