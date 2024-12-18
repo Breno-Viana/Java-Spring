@@ -19,6 +19,8 @@ import lombok.Setter;
 @Table(name = "registers_tb")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Registers {
 
     public Registers(RegisterDto registerDto){
@@ -29,49 +31,40 @@ public class Registers {
     }
 
     @Id
-    @Getter
+
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false)
     @NotBlank(message = "Nao deixe esse campo em branco")
-    @Getter
-    @Setter
+
     private String userName;
 
     @Column(columnDefinition = "TEXT",nullable = false)
     @NotBlank(message = "nao deixe esse campo em branco")
-    @Getter
-    @Setter
+
     @Min(11)
     @Lob
     private String identifier;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "user_email")
     @Email(message = "digite um email valido")
-    @Getter
-    @Setter
     private String email;
 
-    @Getter
-    @Setter
+    @Column(name="creation_date")
     private LocalDate creationDate;
 
-    @Getter
-    @Setter
+    @Column(name="update_date")
     private LocalDate updateDate;
 
-    @Getter
-    @Setter
+    @Column(name="creation_hour")
     private LocalTime creationTime;
 
-    @Getter
-    @Setter
+    @Column(name="update_hour")
     private LocalTime updateTime;
 
-    @Getter
-    @Setter
-    @Column(nullable = false)
+
+    @Column(nullable = false,name="user_situation")
     @Enumerated(EnumType.STRING)
     UserSituation userSituation;
 
@@ -85,76 +78,10 @@ public class Registers {
 
     @PreUpdate
     public void whenEdit() {
-        updateDate = null;
-        updateTime = null;
         this.updateDate = LocalDate.now();
         this.updateTime = LocalTime.now();
 
     }
 
 
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
-    public String getE_mail() {
-        return email;
-    }
-
-    public void setE_mail(String e_mail) {
-        this.email = e_mail;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public LocalDate getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(LocalDate updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public LocalTime getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(LocalTime creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public LocalTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public UserSituation getUserSituation() {
-        return userSituation;
-    }
-
-    public void setUserSituation(UserSituation userSituation) {
-        this.userSituation = userSituation;
-    }
 }
