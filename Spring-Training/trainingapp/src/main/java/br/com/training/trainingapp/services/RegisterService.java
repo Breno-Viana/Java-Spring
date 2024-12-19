@@ -49,7 +49,7 @@ public class RegisterService {
 
         Registers newRegister = Old.get();
         newRegister.setUserName(register.nome());
-        newRegister.setE_mail(register.Email());
+        newRegister.setEmail(register.Email());
         newRegister.setIdentifier(register.identificador());
         repository.save(newRegister);
 

@@ -21,7 +21,7 @@ public class Check {
         List<Registers> ls = new ArrayList<>();
 
         for (Registers registers : repository.findAll()) {
-            if (register.getIdentifier().trim().equals(registers.getIdentifier().trim())||register.getE_mail().trim().equals(registers.getE_mail().trim())) {
+            if (register.getIdentifier().trim().equals(registers.getIdentifier().trim())||register.getEmail().trim().equals(registers.getEmail().trim())) {
                 ls.add(register);
             }
         }

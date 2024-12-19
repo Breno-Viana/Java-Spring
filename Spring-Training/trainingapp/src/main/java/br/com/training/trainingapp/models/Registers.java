@@ -40,11 +40,9 @@ public class Registers {
 
     private String userName;
 
-    @Column(columnDefinition = "TEXT",nullable = false)
+    @Column(nullable = false)
     @NotBlank(message = "nao deixe esse campo em branco")
-
     @Min(11)
-    @Lob
     private String identifier;
 
     @Column(nullable = false,name = "user_email")
@@ -70,14 +68,17 @@ public class Registers {
 
     @PrePersist
     public void whenCreated() {
-        this.creationDate = LocalDate.now();
-        this.updateDate = LocalDate.now();
         this.creationTime = LocalTime.now();
         this.updateTime = LocalTime.now();
+        this.creationDate = LocalDate.now();
+        this.updateDate = LocalDate.now();
+
     }
 
     @PreUpdate
     public void whenEdit() {
+        updateDate = null;
+        updateTime = null;
         this.updateDate = LocalDate.now();
         this.updateTime = LocalTime.now();
 

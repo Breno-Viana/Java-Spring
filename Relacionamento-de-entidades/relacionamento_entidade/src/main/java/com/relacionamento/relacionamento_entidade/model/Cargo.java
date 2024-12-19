@@ -1,15 +1,15 @@
 package com.relacionamento.relacionamento_entidade.model;
 
-import java.util.UUID;
+
 
 import com.relacionamento.relacionamento_entidade.dto.CargoDto;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Cargo {
 
     public Cargo(CargoDto dto){
@@ -27,9 +28,9 @@ public class Cargo {
     }
     
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_cargo")
-    private UUID id;
+    private Long id;
 
 
     @Column(name="nome_cargo",nullable = false)

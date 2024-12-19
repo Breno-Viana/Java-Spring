@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 
+@Getter
 @Entity
 @Table(name = "TB_REVIEW")
 @NoArgsConstructor
@@ -18,30 +19,7 @@ import java.util.UUID;
 public class ReviewModel implements Serializable {
     private static final long serialVersionId = 1L;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getCommentary() {
-        return commentary;
-    }
-
-    public void setCommentary(String commentary) {
-        this.commentary = commentary;
-    }
-
-    public BookModel getBook() {
-        return book;
-    }
-
-    public void setBook(BookModel book) {
-        this.book = book;
-    }
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -49,7 +27,8 @@ public class ReviewModel implements Serializable {
 
 
     @NotBlank
-    @Column(nullable = false, unique = true,name = "Commentaries")
+    @Column(nullable = false, unique = true,name = "Commentaries",columnDefinition = "TEXT")
+    @Lob
     private String commentary;
 
 

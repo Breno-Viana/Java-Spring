@@ -20,7 +20,7 @@ public class CargoController {
 
 
 
-    private CargoRepository repository;
+    private final CargoRepository repository;
 
     public CargoController(CargoRepository repository){
         this.repository = repository;

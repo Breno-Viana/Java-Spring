@@ -23,8 +23,8 @@ import com.relacionamento.relacionamento_entidade.repository.ColaboradorReposito
 @RequestMapping("/colaborador")
 public class ColaboradorController {
     
-   protected ColaboradorRepository repository;
-   protected CargoRepository repository2;
+   protected final ColaboradorRepository repository;
+   protected final CargoRepository repository2;
 
 
     public ColaboradorController(ColaboradorRepository repository, CargoRepository cargoRepository){
@@ -39,7 +39,7 @@ public class ColaboradorController {
 
     @PostMapping("/adicionar")
     public ResponseEntity<Colaborador> adicEntity(@RequestBody ColaboradorDto dto){
-        Optional<Cargo> carOpt = repository2.findById(dto.cargoId());
+        Optional<Cargo> carOpt = repository2.findById(dto.cargo());
         if (carOpt.isEmpty()) {
             return new ResponseEntity<>( HttpStatus.NOT_FOUND);
         }
@@ -51,10 +51,6 @@ public class ColaboradorController {
     @GetMapping("/pegar/{id}")
     public ResponseEntity<Colaborador> getById(@PathVariable UUID id){
         Optional<Colaborador> opt = repository.findById(id);
-        if (opt.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<Colaborador>(opt.get(), HttpStatus.ACCEPTED);
+       return opt.map(colaborador -> new ResponseEntity<>(colaborador, HttpStatus.ACCEPTED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
