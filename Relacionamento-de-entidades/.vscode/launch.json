@@ -19,6 +19,16 @@
             "projectName": "relacionamento_entidade02",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-RelacionamentoEntidade03Application<relacionamento_entidade03>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.relacionamento03.relacionamento_entidade03.RelacionamentoEntidade03Application",
+            "projectName": "relacionamento_entidade03",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

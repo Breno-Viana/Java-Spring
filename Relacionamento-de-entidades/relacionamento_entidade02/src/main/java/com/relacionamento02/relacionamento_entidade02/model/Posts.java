@@ -41,6 +41,6 @@ public class Posts {
 
     @OneToMany
     @JoinColumn(name = "post_id")
-    private Set<Commentaries> commentaries;// = new HashSet<>();
+    private Set<Commentaries> commentaries;
 
 }
