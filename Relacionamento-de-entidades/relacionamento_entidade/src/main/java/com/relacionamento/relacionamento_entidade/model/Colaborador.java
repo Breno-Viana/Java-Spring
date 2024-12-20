@@ -1,4 +1,4 @@
-package com.relacionamento.relacionamento_entidade.model;
+ package com.relacionamento.relacionamento_entidade.model;
 
 import java.util.UUID;
 

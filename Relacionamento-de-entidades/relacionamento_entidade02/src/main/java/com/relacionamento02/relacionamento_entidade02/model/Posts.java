@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name="user_posts")
 @NoArgsConstructor
@@ -16,9 +18,10 @@ import lombok.Setter;
 @Setter
 public class Posts {
 
-    public Posts(PostDto dto){
+    public Posts(PostDto dto, Set<Commentaries> commentary){
         title = dto.titulo();
         text = dto.conteudo();
+        this.commentaries = commentary;
     }
 
 
@@ -35,5 +38,9 @@ public class Posts {
     @Lob
     @Column(columnDefinition = "TEXT",name = "post_content")
     private String text;
+
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private Set<Commentaries> commentaries;// = new HashSet<>();
 
 }

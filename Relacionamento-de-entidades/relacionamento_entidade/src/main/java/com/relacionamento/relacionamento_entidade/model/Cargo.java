@@ -2,12 +2,16 @@ package com.relacionamento.relacionamento_entidade.model;
 
 
 
+import java.util.Set;
+
 import com.relacionamento.relacionamento_entidade.dto.CargoDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,4 +43,5 @@ public class Cargo {
 
     @Column(name="salario_cargo",nullable = false)
     private Double salario;
+
 }
