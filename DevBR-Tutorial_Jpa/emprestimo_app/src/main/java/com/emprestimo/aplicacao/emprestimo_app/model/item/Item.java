@@ -1,13 +1,18 @@
 package com.emprestimo.aplicacao.emprestimo_app.model.item;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="tb_item")
+@Entity
 public class Item {
 
 
