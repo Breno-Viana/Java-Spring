@@ -1,11 +1,14 @@
 package com.emprestimo.aplicacao.emprestimo_app.model.item;
 
+import com.emprestimo.aplicacao.emprestimo_app.model.categoria.Categoria;
 import com.emprestimo.aplicacao.emprestimo_app.model.item.qr.QrCode;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
 
 
-@Table(name="tb_item")
+@Table(name = "tb_item")
 @Entity
 public class Item {
 
@@ -15,17 +18,29 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="item_name",nullable = false)
+    @Column(name = "item_name", nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT",name="item_description")
+    @Column(columnDefinition = "TEXT", name = "item_description")
     @Lob
     private String description;
 
-    @OneToOne
-   // @JoinColumn(name="qr_code",referencedColumnName = "id")
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "qr_code")
     private QrCode qr_code;
 
+    @ManyToMany
+    private Set<Categoria> categorias = new HashSet<>();
+
+
+    public Set<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(Set<Categoria> categorias) {
+        this.categorias = categorias;
+    }
 
     public Integer getId() {
         return id;
@@ -51,7 +66,7 @@ public class Item {
         this.description = description;
     }
 
-   public QrCode getQr_code() {
+    public QrCode getQr_code() {
         return qr_code;
     }
 

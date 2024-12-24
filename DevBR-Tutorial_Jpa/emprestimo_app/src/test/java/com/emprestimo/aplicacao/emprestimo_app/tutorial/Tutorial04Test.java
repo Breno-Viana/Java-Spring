@@ -64,7 +64,7 @@ public class Tutorial04Test {
                     verificarPessoa.getItens().stream().findFirst().ifPresent(item1 -> {
                         Assertions.assertEquals(item1,item  );
                     });
-                },()->Assertions.fail("empty body")
+                },Assertions::fail
         );
 
 

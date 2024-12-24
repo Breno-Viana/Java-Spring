@@ -15,7 +15,6 @@ public class QrCode {
 
 
     @Column(name="qr_code")
-    //@GeneratedValue(strategy = GenerationType.UUID)
     private UUID code;
 
     public Integer getId() {
