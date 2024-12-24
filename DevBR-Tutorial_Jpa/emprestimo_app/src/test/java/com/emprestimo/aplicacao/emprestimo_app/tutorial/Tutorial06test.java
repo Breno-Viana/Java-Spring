@@ -22,7 +22,7 @@ public class Tutorial06test {
     private static final UUID QR_CODE = UUID.randomUUID();
 
     @Test
-    void cascadeTypePersist() {
+    void cascadeTypePersist() {  //utilização do CascadeType.PERSIST para criar um objento do qr code automaticamente sem a necessidade de salvar antes
         var Qr = new QrCode();
         Qr.setCode(QR_CODE);
 
@@ -39,7 +39,7 @@ public class Tutorial06test {
     }
 
     @Test
-    void CascadeTypeMerge() {
+    void CascadeTypeMerge() { //utilização do CascadeType.MERGE para nao precisar salvar um novo qr code quando for atuaizar o item
         var ATUALIZADO_NOME = ITEM_NAME + "atualizado";
         var NOVO_QR = UUID.randomUUID();
         var Qr = new QrCode();
@@ -60,7 +60,7 @@ public class Tutorial06test {
     }
 
     @Test
-    void CascadeTypeRemove(){
+    void CascadeTypeRemove(){ //remove o qr code quando o item é apagado com o CascadeType.REMOVE
         var ATUALIZADO_NOME = ITEM_NAME + "atualizado";
         var NOVO_QR = UUID.randomUUID();
         var Qr = new QrCode();

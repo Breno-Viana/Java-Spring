@@ -31,7 +31,7 @@ public class Tutorial03Test {
 
         var Qr = new QrCode();
         Qr.setCode(QR_CODE);
-        qrRepository.save(Qr);
+       // qrRepository.save(Qr);
 
         item.setQr_code(Qr);
 

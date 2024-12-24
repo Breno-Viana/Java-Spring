@@ -16,10 +16,10 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="cl_name",nullable = false)
+
     private String name;
 
-    @Column(name = "cl_email",nullable = false)
+
     private String email;
 
     @OneToMany
