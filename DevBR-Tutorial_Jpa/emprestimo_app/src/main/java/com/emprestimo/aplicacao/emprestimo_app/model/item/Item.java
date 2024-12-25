@@ -5,6 +5,7 @@ import com.emprestimo.aplicacao.emprestimo_app.model.item.qr.QrCode;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -26,6 +27,7 @@ public class Item {
     private String description;
 
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "qr_code")
     private QrCode qr_code;
@@ -33,6 +35,18 @@ public class Item {
     @ManyToMany
     private Set<Categoria> categorias = new HashSet<>();
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(id, item.id) && Objects.equals(name, item.name) && Objects.equals(description, item.description) && Objects.equals(qr_code, item.qr_code) && Objects.equals(categorias, item.categorias);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, qr_code, categorias);
+    }
 
     public Set<Categoria> getCategorias() {
         return categorias;

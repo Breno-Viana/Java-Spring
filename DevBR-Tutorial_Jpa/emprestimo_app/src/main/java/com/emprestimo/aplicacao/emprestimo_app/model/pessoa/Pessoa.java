@@ -5,6 +5,7 @@ import com.emprestimo.aplicacao.emprestimo_app.model.item.Item;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,18 @@ public class Pessoa {
     @OneToMany
     @JoinColumn(name = "tb_pessoas")
     private Set<Item> itens = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(email, pessoa.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(email);
+    }
 
     public Integer getId() {
         return id;
