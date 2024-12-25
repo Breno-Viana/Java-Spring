@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
@@ -22,16 +23,17 @@ public class Tutorial10Test {
     void BuscarPessoaPorEmail(){
         var pessoa = new Pessoa();
         pessoa.setName("Elis");
-        pessoa.setEmail("elis@test.com");
+        pessoa.setEmail("elisa@test.com");
         pessoaRepository.save(pessoa);
 
         var referencia = new Pessoa();
-        referencia.setEmail("elis@test.com");
+        referencia.setEmail("elisa@test.com");
         //pessoaRepository.save(referencia);
         var exemplo = Example.of(referencia);
         var pessoaRepo = pessoaRepository.findOne(exemplo).orElseThrow();
 
-        Assertions.assertEquals("elis@test.com",pessoaRepo.getEmail());
+        Assertions.assertEquals("elisa@test.com",pessoaRepo.getEmail());
+
 
     }
 
@@ -55,7 +57,6 @@ public class Tutorial10Test {
         var pessoaReferencia = Example.of(referencia);
         var ListaDeReferencias = pessoaRepository.findAll(pessoaReferencia);
         Assertions.assertEquals(2,ListaDeReferencias.size());
-
         Assertions.assertEquals(pessoa,ListaDeReferencias.getFirst());
 
     }

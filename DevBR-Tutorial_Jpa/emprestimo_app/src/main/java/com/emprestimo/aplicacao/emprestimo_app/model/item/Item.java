@@ -32,7 +32,7 @@ public class Item {
     @JoinColumn(name = "qr_code")
     private QrCode qr_code;
 
-    @ManyToMany
+    @ManyToMany()
     private Set<Categoria> categorias = new HashSet<>();
 
 
