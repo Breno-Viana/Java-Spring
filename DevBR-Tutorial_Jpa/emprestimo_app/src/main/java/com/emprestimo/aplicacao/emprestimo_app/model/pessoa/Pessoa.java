@@ -24,8 +24,18 @@ public class Pessoa {
     private String email;
 
     @OneToMany
-    @JoinColumn(name = "tb_pessoas")
+    @JoinTable(
+            name = "emprestimo",
+            joinColumns = @JoinColumn(name = "pessoa_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
     private Set<Item> itens = new HashSet<>();
+
+
+
+
+
+
 
     @Override
     public boolean equals(Object o) {

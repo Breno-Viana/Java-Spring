@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EmprestimoAppApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EmprestimoAppApplication.class, args);
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(EmprestimoAppApplication.class,args);
 	}
 
 }

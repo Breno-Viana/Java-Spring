@@ -2,7 +2,10 @@ package com.emprestimo.aplicacao.emprestimo_app.model.item;
 
 import com.emprestimo.aplicacao.emprestimo_app.model.categoria.Categoria;
 import com.emprestimo.aplicacao.emprestimo_app.model.item.qr.QrCode;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -27,14 +30,34 @@ public class Item {
     private String description;
 
 
+    @Column(name="json")
+    @Type(JsonType.class)
+    private Detalhes detalhes;
+
+
+
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "qr_code")
     private QrCode qr_code;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Categoria> categorias = new HashSet<>();
 
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", detalhes=" + detalhes +
+                ", qr_code=" + qr_code +
+                ", categorias=" + categorias +
+                "detalhes=" + detalhes +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -86,5 +109,13 @@ public class Item {
 
     public void setQr_code(QrCode qr_code) {
         this.qr_code = qr_code;
+    }
+
+    public Detalhes getDetalhes() {
+        return detalhes;
+    }
+
+    public void setDetalhes(Detalhes detalhes) {
+        this.detalhes = detalhes;
     }
 }
