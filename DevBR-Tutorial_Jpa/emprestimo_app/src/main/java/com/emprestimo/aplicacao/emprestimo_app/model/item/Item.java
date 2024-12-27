@@ -5,7 +5,6 @@ import com.emprestimo.aplicacao.emprestimo_app.model.item.qr.QrCode;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -34,8 +33,9 @@ public class Item  {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Categoria> categorias = new HashSet<>();
 
-    @Column(columnDefinition = "json")
-    @Type(JsonType.class)
+    @Column(columnDefinition = "JSON")
+    //@Type(JsonType.class)
+    @Convert(converter = DetalhesConverter.class)
     private Detalhes detalhes;
 
 
@@ -50,6 +50,8 @@ public class Item  {
                 ", detalhes=" + detalhes +
                 '}';
     }
+
+
 
     @Override
     public boolean equals(Object o) {
