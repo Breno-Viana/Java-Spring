@@ -39,6 +39,9 @@ public class Item  {
     private Detalhes detalhes;
 
 
+    @Embedded
+    private NumeroDeSerie numeroDeSerie;
+
     @Override
     public String toString() {
         return "Item{" +
@@ -48,10 +51,9 @@ public class Item  {
                 ", qr_code=" + qr_code +
                 ", categorias=" + categorias +
                 ", detalhes=" + detalhes +
+                ", numeroDeSerie=" + numeroDeSerie +
                 '}';
     }
-
-
 
     @Override
     public boolean equals(Object o) {
@@ -111,5 +113,13 @@ public class Item  {
 
     public void setDetalhes(Detalhes detalhes) {
         this.detalhes = detalhes;
+    }
+
+    public NumeroDeSerie getNumeroDeSerie() {
+        return numeroDeSerie;
+    }
+
+    public void setNumeroDeSerie(NumeroDeSerie numeroDeSerie) {
+        this.numeroDeSerie = numeroDeSerie;
     }
 }
