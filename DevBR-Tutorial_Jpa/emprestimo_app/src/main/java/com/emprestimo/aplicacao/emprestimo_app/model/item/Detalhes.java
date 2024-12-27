@@ -1,7 +1,11 @@
 package com.emprestimo.aplicacao.emprestimo_app.model.item;
 
-public class Detalhes {
-    String modelo;
+
+import java.io.Serializable;
+
+public class Detalhes implements Serializable {
+
+   private  String modelo;
 
     public Detalhes(String garrafaPet) {
         this.modelo=garrafaPet;

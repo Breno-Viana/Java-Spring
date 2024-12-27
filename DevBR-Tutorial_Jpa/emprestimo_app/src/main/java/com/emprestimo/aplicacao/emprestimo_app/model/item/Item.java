@@ -2,11 +2,10 @@ package com.emprestimo.aplicacao.emprestimo_app.model.item;
 
 import com.emprestimo.aplicacao.emprestimo_app.model.categoria.Categoria;
 import com.emprestimo.aplicacao.emprestimo_app.model.item.qr.QrCode;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
-
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,8 +13,7 @@ import java.util.Set;
 
 @Table(name = "tb_item")
 @Entity
-public class Item {
-
+public class Item  {
 
     @Column(name = "item_id")
     @Id
@@ -29,21 +27,16 @@ public class Item {
     @Lob
     private String description;
 
-
-    @Column(name="json")
-    @Type(JsonType.class)
-    private Detalhes detalhes;
-
-
-
-
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "qr_code")
     private QrCode qr_code;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Categoria> categorias = new HashSet<>();
+
+    @Column(columnDefinition = "json")
+    @Type(JsonType.class)
+    private Detalhes detalhes;
 
 
     @Override
@@ -52,10 +45,9 @@ public class Item {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", detalhes=" + detalhes +
                 ", qr_code=" + qr_code +
                 ", categorias=" + categorias +
-                "detalhes=" + detalhes +
+                ", detalhes=" + detalhes +
                 '}';
     }
 

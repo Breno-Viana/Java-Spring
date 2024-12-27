@@ -6,6 +6,7 @@ import com.emprestimo.aplicacao.emprestimo_app.model.item.repository.ItemReposit
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 public class Tutorial16Test {
@@ -14,6 +15,7 @@ public class Tutorial16Test {
     private ItemRepository itemRepository;
 
     @Test
+    @Transactional
     void JsonNoBancoDeDados(){
 
         var item = new Item();
