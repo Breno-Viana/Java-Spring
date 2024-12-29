@@ -9,6 +9,9 @@ public record ClientDTO(String firstName,
                         String email,
                         String passWord,
                         Character clientType,
-                        BigDecimal balance) {
+                        BigDecimal balance,
+                        String cep,
+                        String streetName,
+                        Integer houseNumber) {
 
 }

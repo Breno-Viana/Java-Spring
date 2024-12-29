@@ -5,12 +5,12 @@ import jakarta.transaction.Transactional;
 import org.bg.picpay.picpaysimplificado.dto.TransactionDTO;
 import org.bg.picpay.picpaysimplificado.exceptions.error.CommercialAccountException;
 import org.bg.picpay.picpaysimplificado.exceptions.error.NoBalanceException;
-import org.bg.picpay.picpaysimplificado.exceptions.error.UserNotFoundException;
+import org.bg.picpay.picpaysimplificado.exceptions.error.ClientNotFoundException;
 import org.bg.picpay.picpaysimplificado.model.Transations.Transactions;
 import org.bg.picpay.picpaysimplificado.model.User.AccountType;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
 import org.bg.picpay.picpaysimplificado.repository.TransactionRepository;
-import org.bg.picpay.picpaysimplificado.repository.UserRepository;
+import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,16 +25,16 @@ import java.util.UUID;
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
-    private final UserRepository userRepository;
+    private final ClientRepository userRepository;
 
-    public TransactionService(UserRepository userRepository, TransactionRepository transactionRepository){
+    public TransactionService(ClientRepository userRepository, TransactionRepository transactionRepository){
         this.userRepository = userRepository;
         this.transactionRepository=transactionRepository;
     }
 
 
     private void ValidateTransaction(UUID senderId, BigDecimal amount){
-        Client sender = userRepository.findById(senderId).orElseThrow(UserNotFoundException::new);
+        Client sender = userRepository.findById(senderId).orElseThrow(ClientNotFoundException::new);
         if (sender.getAccount().equals(AccountType.COMMERCIAL)){
             throw new CommercialAccountException();
         }
@@ -47,8 +47,8 @@ public class TransactionService {
 
     @Transactional
     public ResponseEntity<?> transfer(TransactionDTO dto) {
-        Client sender = userRepository.findById(dto.senderID()).orElseThrow(UserNotFoundException::new);
-        Client receiver = userRepository.findById(dto.receiverID()).orElseThrow(UserNotFoundException::new);
+        Client sender = userRepository.findById(dto.senderID()).orElseThrow(ClientNotFoundException::new);
+        Client receiver = userRepository.findById(dto.receiverID()).orElseThrow(ClientNotFoundException::new);
 
         ValidateTransaction(dto.senderID(),dto.amount());
 

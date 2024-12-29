@@ -32,7 +32,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> addUser(@RequestBody @Valid ClientDTO userDto){
-        return userService.addUser(userDto);
+        return UserService.addUser(userDto);
     }
 
 

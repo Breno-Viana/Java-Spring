@@ -7,21 +7,21 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Component
-public class NotFoundUserBody {
+public class NotFoundClientBody {
     private String message;
     private HttpStatus status;
     private Instant instant;
-    private UUID id_not_founded;
+    //private UUID id_not_founded;
 
 
-    public NotFoundUserBody() {
+    public NotFoundClientBody() {
     }
 
-    public NotFoundUserBody(String message, HttpStatus status, Instant instant, UUID id_not_founded) {
+    public NotFoundClientBody(String message, HttpStatus status, Instant instant ) {
         this.message = message;
         this.status = status;
         this.instant = instant;
-        this.id_not_founded = id_not_founded;
+       // this.id_not_founded = id_not_founded;
     }
 
     public String getMessage() {
@@ -48,11 +48,11 @@ public class NotFoundUserBody {
         this.instant = instant;
     }
 
-    public UUID getId_not_founded() {
+   /* public UUID getId_not_founded() {
         return id_not_founded;
     }
 
     public void setId_not_founded(UUID id_not_founded) {
         this.id_not_founded = id_not_founded;
-    }
+    }*/
 }

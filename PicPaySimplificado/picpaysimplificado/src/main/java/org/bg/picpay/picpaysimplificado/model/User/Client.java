@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
+import org.bg.picpay.picpaysimplificado.model.address.Address;
+import org.bg.picpay.picpaysimplificado.model.converter.AddresConverter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,7 +18,7 @@ import static org.bg.picpay.picpaysimplificado.model.User.AccountType.valueDB;
 @Table(name="tb_clients")
 public class Client implements Serializable {
 
-    public Client(ClientDTO dto){
+    public Client(ClientDTO dto, Address address){
         this.firstName = dto.firstName();
         this.lastName= dto.lastName();
         this.document=dto.document();
@@ -24,6 +26,8 @@ public class Client implements Serializable {
         this.passWord=dto.passWord();
         this.balance=dto.balance();
         setAccount(AccountType.valueDB(dto.clientType()));
+        this.address=address;
+
 
     }
     public Client(){}
@@ -61,6 +65,10 @@ public class Client implements Serializable {
     @Column(name="client_type")
     private char type;
 
+    @Column(columnDefinition = "JSON")
+    @Convert(converter = AddresConverter.class)
+    private Address address;
+
 
 
 
@@ -72,6 +80,21 @@ public class Client implements Serializable {
         if (code!= null){
             this.type=code.getCode();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", balance=" + balance +
+                ", document='" + document + '\'' +
+                ", email='" + email + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", type=" + type +
+                ", address=" + address +
+                '}';
     }
 
     public String getPassWord() {
@@ -129,5 +152,13 @@ public class Client implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Address getAddress(){
+        return address;
+    }
+
+    public void setAddress(Address address){
+        this.address=address;
     }
 }

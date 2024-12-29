@@ -1,11 +1,6 @@
 package org.bg.picpay.picpaysimplificado.model.User;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
+import org.bg.picpay.picpaysimplificado.exceptions.error.NonTypeAccountException;
 
 
 public enum AccountType {
@@ -26,7 +21,7 @@ public enum AccountType {
             }
         }
 
-        throw new RuntimeException();
+        throw new NonTypeAccountException();
     }
     public Character getCode(){
         return code;

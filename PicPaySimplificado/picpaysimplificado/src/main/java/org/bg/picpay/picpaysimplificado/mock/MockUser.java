@@ -1,26 +1,20 @@
 package org.bg.picpay.picpaysimplificado.mock;
 
-import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
-import org.bg.picpay.picpaysimplificado.model.User.Client;
-import org.bg.picpay.picpaysimplificado.repository.UserRepository;
+import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 @Component
 public class MockUser implements ApplicationRunner {
     @Autowired
-    UserRepository repository;
+    ClientRepository repository;
 
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        ClientDTO Dto1 = new ClientDTO("joao", "de melo", "02993902893", "demelo@gmail.com", "jota1234", 'P',new BigDecimal(1000));
+      /*  ClientDTO Dto1 = new ClientDTO("joao", "de melo", "02993902893", "demelo@gmail.com", "jota1234", 'P',new BigDecimal(1000));
         ClientDTO Dto2 = new ClientDTO("rafael", "mesquita", "73888339338", "mesquita@gmail.com", "mesqu1234",'C',new BigDecimal(1212));
         ClientDTO Dto3 = new ClientDTO("marcos", "leao", "38993003993", "leao@gmail.com", "leao1234", 'P',new BigDecimal(12331));
         ClientDTO Dto4 = new ClientDTO("isabele", "lobos", "38388283993", "isalobos@hotmail.com", "lobo1234", 'C', new BigDecimal(12331));
@@ -35,6 +29,6 @@ public class MockUser implements ApplicationRunner {
         for (ClientDTO uss : dto){
             us.add(new Client(uss));
         }
-       repository.saveAll(us);
+       repository.saveAll(us);*/
     }
 }
