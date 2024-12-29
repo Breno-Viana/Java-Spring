@@ -1,6 +1,6 @@
 package org.bg.picpay.picpaysimplificado.controllers;
 
-import org.bg.picpay.picpaysimplificado.dto.TransactionDto;
+import org.bg.picpay.picpaysimplificado.dto.TransactionDTO;
 import org.bg.picpay.picpaysimplificado.model.Transations.Transactions;
 import org.bg.picpay.picpaysimplificado.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<?> Transfer(@RequestBody TransactionDto transactionDto) throws Exception{
+    public ResponseEntity<?> Transfer(@RequestBody TransactionDTO transactionDto) throws Exception{
         return transactionService.transfer(transactionDto);
     }
 

@@ -1,26 +1,27 @@
 package org.bg.picpay.picpaysimplificado.exceptions.bodies;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.UUID;
 
 @Component
-public class NoBalance {
+public class NotFoundUserBody {
     private String message;
     private HttpStatus status;
-    private Instant instantTime;
-    private BigDecimal currentBalance;
+    private Instant instant;
+    private UUID id_not_founded;
 
-    public NoBalance() {
+
+    public NotFoundUserBody() {
     }
 
-    public NoBalance(String message, HttpStatus status, Instant instantTime) {
+    public NotFoundUserBody(String message, HttpStatus status, Instant instant, UUID id_not_founded) {
         this.message = message;
         this.status = status;
-        this.instantTime = instantTime;
+        this.instant = instant;
+        this.id_not_founded = id_not_founded;
     }
 
     public String getMessage() {
@@ -39,19 +40,19 @@ public class NoBalance {
         this.status = status;
     }
 
-    public Instant getInstantTime() {
-        return instantTime;
+    public Instant getInstant() {
+        return instant;
     }
 
-    public void setInstantTime(Instant instantTime) {
-        this.instantTime = instantTime;
+    public void setInstant(Instant instant) {
+        this.instant = instant;
     }
 
-    public BigDecimal getCurrentBalance() {
-        return currentBalance;
+    public UUID getId_not_founded() {
+        return id_not_founded;
     }
 
-    public void setCurrentBalance(BigDecimal currentBalance) {
-        this.currentBalance = currentBalance;
+    public void setId_not_founded(UUID id_not_founded) {
+        this.id_not_founded = id_not_founded;
     }
 }

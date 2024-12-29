@@ -2,11 +2,13 @@ package org.bg.picpay.picpaysimplificado.services;
 
 
 import jakarta.transaction.Transactional;
-import org.bg.picpay.picpaysimplificado.dto.TransactionDto;
-import org.bg.picpay.picpaysimplificado.exceptions.NoBalanceException;
+import org.bg.picpay.picpaysimplificado.dto.TransactionDTO;
+import org.bg.picpay.picpaysimplificado.exceptions.error.CommercialAccountException;
+import org.bg.picpay.picpaysimplificado.exceptions.error.NoBalanceException;
+import org.bg.picpay.picpaysimplificado.exceptions.error.UserNotFoundException;
 import org.bg.picpay.picpaysimplificado.model.Transations.Transactions;
 import org.bg.picpay.picpaysimplificado.model.User.AccountType;
-import org.bg.picpay.picpaysimplificado.model.User.User;
+import org.bg.picpay.picpaysimplificado.model.User.Client;
 import org.bg.picpay.picpaysimplificado.repository.TransactionRepository;
 import org.bg.picpay.picpaysimplificado.repository.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -23,30 +25,30 @@ import java.util.UUID;
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
-    private static UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public TransactionService(UserRepository userRepository, TransactionRepository transactionRepository){
-        TransactionService.userRepository = userRepository;
+        this.userRepository = userRepository;
         this.transactionRepository=transactionRepository;
     }
 
 
-    private static void ValidateTransaction(UUID senderId, BigDecimal amount){
-        User sender = userRepository.findById(senderId).orElseThrow(RuntimeException::new);
+    private void ValidateTransaction(UUID senderId, BigDecimal amount){
+        Client sender = userRepository.findById(senderId).orElseThrow(UserNotFoundException::new);
         if (sender.getAccount().equals(AccountType.COMMERCIAL)){
-            throw new RuntimeException("conta do tipo comercial");
+            throw new CommercialAccountException();
         }
 
         if (sender.getBalance().compareTo(amount)<0){
-            throw new NoBalanceException();
+            throw new NoBalanceException(amount.toString());
         }
     }
 
 
     @Transactional
-    public ResponseEntity<?> transfer(TransactionDto dto) {
-        User sender = userRepository.findById(dto.senderID()).orElseThrow(RuntimeException::new);
-        User receiver = userRepository.findById(dto.receiverID()).orElseThrow(RuntimeException::new);
+    public ResponseEntity<?> transfer(TransactionDTO dto) {
+        Client sender = userRepository.findById(dto.senderID()).orElseThrow(UserNotFoundException::new);
+        Client receiver = userRepository.findById(dto.receiverID()).orElseThrow(UserNotFoundException::new);
 
         ValidateTransaction(dto.senderID(),dto.amount());
 

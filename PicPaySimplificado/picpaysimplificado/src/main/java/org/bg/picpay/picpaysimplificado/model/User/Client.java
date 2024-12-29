@@ -4,36 +4,33 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.bg.picpay.picpaysimplificado.dto.TransactionDto;
-import org.bg.picpay.picpaysimplificado.dto.UserDto;
-import org.bg.picpay.picpaysimplificado.model.Transations.Transactions;
+import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Set;
 import java.util.UUID;
 
 import static org.bg.picpay.picpaysimplificado.model.User.AccountType.valueDB;
 
 @Entity
-@Table(name="tb_users")
-public class User implements Serializable {
+@Table(name="tb_clients")
+public class Client implements Serializable {
 
-    public User(UserDto dto){
+    public Client(ClientDTO dto){
         this.firstName = dto.firstName();
         this.lastName= dto.lastName();
         this.document=dto.document();
         this.email=dto.email();
         this.passWord=dto.passWord();
         this.balance=dto.balance();
-        setAccount(AccountType.valueDB(dto.userType()));
+        setAccount(AccountType.valueDB(dto.clientType()));
 
     }
-    public User(){}
+    public Client(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name="cl_user_id")
+    @Column(name="cl_client_id")
     private UUID id;
 
     @NotBlank
@@ -44,7 +41,7 @@ public class User implements Serializable {
     @Column(name="last_name")
     private String lastName;
 
-    @Column(name="cl_user_balance")
+    @Column(name="cl_client_balance")
     private BigDecimal balance;
 
     @NotBlank
@@ -61,7 +58,7 @@ public class User implements Serializable {
     private String passWord;
 
     @NotNull
-    @Column(name="user_type")
+    @Column(name="client_type")
     private char type;
 
 

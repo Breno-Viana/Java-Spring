@@ -2,12 +2,10 @@ package org.bg.picpay.picpaysimplificado.model.Transations;
 
 
 import jakarta.persistence.*;
-import org.bg.picpay.picpaysimplificado.dto.TransactionDto;
-import org.bg.picpay.picpaysimplificado.model.User.User;
+import org.bg.picpay.picpaysimplificado.model.User.Client;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,10 +18,10 @@ public class Transactions implements Serializable {
     public Transactions() {
     }
 
-    public Transactions( User sender, User receiver, BigDecimal amount) {
+    public Transactions(Client sender, Client receiver, BigDecimal amount) {
         this.sender = sender;
         this.receiver = receiver;
-        this.amount = amount;
+        this.value = amount;
     }
 
     @Id
@@ -33,15 +31,15 @@ public class Transactions implements Serializable {
 
     @JoinColumn(name = "sender_id")
     @ManyToOne(cascade = CascadeType.ALL)
-    private User sender;
+    private Client sender;
 
 
     @JoinColumn(name="receiver_id")
     @ManyToOne(cascade = CascadeType.ALL)
-    private User receiver;
+    private Client receiver;
 
-    @Column(name = "transaction_amount")
-    private BigDecimal amount;
+    @Column(name = "transaction_value")
+    private BigDecimal value;
 
     @Column(name="transaction_instant")
     private LocalDateTime instantTime;
@@ -69,27 +67,27 @@ public class Transactions implements Serializable {
         this.id = id;
     }
 
-    public User getSender() {
+    public Client getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
+    public void setSender(Client sender) {
         this.sender = sender;
     }
 
-    public User getReceiver() {
+    public Client getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
+    public void setReceiver(Client receiver) {
         this.receiver = receiver;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getValue() {
+        return value;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setValue(BigDecimal amount) {
+        this.value = amount;
     }
 }

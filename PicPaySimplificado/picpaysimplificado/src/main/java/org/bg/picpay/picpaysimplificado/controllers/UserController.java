@@ -1,7 +1,7 @@
 package org.bg.picpay.picpaysimplificado.controllers;
 
 import jakarta.validation.Valid;
-import org.bg.picpay.picpaysimplificado.dto.UserDto;
+import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import org.bg.picpay.picpaysimplificado.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<?> addUser(@RequestBody @Valid UserDto userDto){
+    public ResponseEntity<?> addUser(@RequestBody @Valid ClientDTO userDto){
         return userService.addUser(userDto);
     }
 
