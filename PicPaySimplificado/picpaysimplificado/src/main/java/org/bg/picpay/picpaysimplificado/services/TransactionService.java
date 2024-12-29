@@ -3,6 +3,7 @@ package org.bg.picpay.picpaysimplificado.services;
 
 import jakarta.transaction.Transactional;
 import org.bg.picpay.picpaysimplificado.dto.TransactionDto;
+import org.bg.picpay.picpaysimplificado.exceptions.NoBalanceException;
 import org.bg.picpay.picpaysimplificado.model.Transations.Transactions;
 import org.bg.picpay.picpaysimplificado.model.User.AccountType;
 import org.bg.picpay.picpaysimplificado.model.User.User;
@@ -30,20 +31,20 @@ public class TransactionService {
     }
 
 
-    private static void ValidateTransaction(UUID senderId, BigDecimal amount) throws Exception{
+    private static void ValidateTransaction(UUID senderId, BigDecimal amount){
         User sender = userRepository.findById(senderId).orElseThrow(RuntimeException::new);
         if (sender.getAccount().equals(AccountType.COMMERCIAL)){
             throw new RuntimeException("conta do tipo comercial");
         }
 
         if (sender.getBalance().compareTo(amount)<0){
-            throw new RuntimeException("sem saldo bancario");
+            throw new NoBalanceException();
         }
     }
 
 
     @Transactional
-    public ResponseEntity<?> transfer(TransactionDto dto) throws Exception {
+    public ResponseEntity<?> transfer(TransactionDto dto) {
         User sender = userRepository.findById(dto.senderID()).orElseThrow(RuntimeException::new);
         User receiver = userRepository.findById(dto.receiverID()).orElseThrow(RuntimeException::new);
 
