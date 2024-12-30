@@ -1,4 +1,4 @@
-package org.bg.picpay.picpaysimplificado.model.address.converter;
+package org.bg.picpay.picpaysimplificado.model.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;

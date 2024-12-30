@@ -25,7 +25,7 @@ public class MockUser implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         ClientDTO Dto1 = new ClientDTO("joao", "de melo", "02993902893", "demelo@gmail.com", "jota1234", 'P',new BigDecimal(1000),"46500000","rua y",21);
-        ClientDTO Dto2 = new ClientDTO("rafael", "mesquita", "73888339338", "mesquita@gmail.com", "mesqu1234",'C',new BigDecimal(1212),"46500000","rua y",21);
+        ClientDTO Dto2 = new ClientDTO("rafael", "mesquita", "73888339338", "mesquita@gmail.com", "mesqu1234",'C',new BigDecimal(1212),"40050320","rua y",21);
         ClientDTO Dto3 = new ClientDTO("marcos", "leao", "38993003993", "leao@gmail.com", "leao1234", 'P',new BigDecimal(12331),"46500000","rua y",21);
         ClientDTO Dto4 = new ClientDTO("isabele", "lobos", "38388283993", "isalobos@hotmail.com", "lobo1234", 'C', new BigDecimal(12331),"46500000","rua y",21);
         ClientDTO Dto5 = new ClientDTO("marta", "jesus", "37820129338", "marta@outlook.com", "marta1234", 'P',new BigDecimal(12010),"46500000","rua y",21);

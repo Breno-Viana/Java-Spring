@@ -7,8 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.utils.AccountType;
 
+import org.bg.picpay.picpaysimplificado.model.User.utils.Login;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
-import org.bg.picpay.picpaysimplificado.model.address.converter.AddressConverter;
+import org.bg.picpay.picpaysimplificado.model.converter.AddressConverter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,13 +21,14 @@ import static org.bg.picpay.picpaysimplificado.model.User.utils.AccountType.valu
 @Table(name = "tb_clients")
 public class Client implements Serializable {
 
-    public Client(ClientDTO dto, Address address) {
+    public Client(ClientDTO dto, Address address, Login login) {
         this.firstName = dto.firstName();
         this.lastName = dto.lastName();
         this.document = dto.document();
         this.balance = dto.balance();
         this.address = address;
-
+        this.login=login;
+        setAccount(valueDB(dto.clientType()));
     }
 
     public Client() {
@@ -60,10 +62,10 @@ public class Client implements Serializable {
     @Convert(converter = AddressConverter.class)
     private Address address;
 
-    @Email
-    private String email;
-    @Column(name="pass")
-    private String Senha;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "credentials")
+    private Login login;
+
 
 
     public AccountType getAccount() {
@@ -75,6 +77,7 @@ public class Client implements Serializable {
             this.type = code.getCode();
         }
     }
+
 
 
     public String getDocument() {
@@ -117,12 +120,19 @@ public class Client implements Serializable {
         this.lastName = lastName;
     }
 
-    public Address getAddress(){
+    public Address getAddress() {
         return this.address;
     }
 
-    public void setAddress(Address address){
-        this.address=address;
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setLogin(Login login){
+        this.login=login;
+    }
+    public Login getLogin(){
+        return login;
     }
 }
 

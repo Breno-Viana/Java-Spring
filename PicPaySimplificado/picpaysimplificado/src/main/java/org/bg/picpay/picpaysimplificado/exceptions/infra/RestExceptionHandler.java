@@ -2,11 +2,8 @@ package org.bg.picpay.picpaysimplificado.exceptions.infra;
 
 import org.bg.picpay.picpaysimplificado.exceptions.bodies.CommercialAccountBody;
 import org.bg.picpay.picpaysimplificado.exceptions.bodies.NotFoundClientBody;
-import org.bg.picpay.picpaysimplificado.exceptions.error.ClientNotFoundException;
-import org.bg.picpay.picpaysimplificado.exceptions.error.CommercialAccountException;
-import org.bg.picpay.picpaysimplificado.exceptions.error.NoBalanceException;
+import org.bg.picpay.picpaysimplificado.exceptions.error.*;
 import org.bg.picpay.picpaysimplificado.exceptions.bodies.NoBalance;
-import org.bg.picpay.picpaysimplificado.exceptions.error.NullAddressException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -43,6 +40,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("no address content");
     }
 
+    @ExceptionHandler(NonTypeAccountException.class)
+    private ResponseEntity<?> NoTypeAccountException(){
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Tipo de conta nao suportado");
+    }
 
 
 }

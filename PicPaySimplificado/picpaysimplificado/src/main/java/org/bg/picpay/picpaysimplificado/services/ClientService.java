@@ -6,8 +6,10 @@ import org.bg.picpay.picpaysimplificado.exceptions.error.ClientNotFoundException
 import org.bg.picpay.picpaysimplificado.exceptions.error.NullAddressException;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
 
+import org.bg.picpay.picpaysimplificado.model.User.utils.Login;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,14 +29,15 @@ public class ClientService {
     }
 
     public List<Client> finAllUsers(){
-        return userRepository.findAll();
+        var sort = Sort.by(Sort.Direction.ASC,"firstName");
+        return userRepository.findAll(sort);
     }
 
 
     public static ResponseEntity<Client> addUser(ClientDTO clientDTO){
         var Address = SetAddress(clientDTO.cep(),clientDTO);
-
-        Client client = new Client(clientDTO,Address);
+        var login = new Login(clientDTO);
+        Client client = new Client(clientDTO,Address,login);
         return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(client));
     }
 
