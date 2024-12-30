@@ -1,14 +1,12 @@
-package org.bg.picpay.picpaysimplificado.model.converter;
+package org.bg.picpay.picpaysimplificado.model.address.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 
-import java.util.concurrent.ExecutionException;
-
 @Converter
-public class AddresConverter implements AttributeConverter<Address, String> {
+public class AddressConverter implements AttributeConverter<Address, String> {
     @Override
     public String convertToDatabaseColumn(Address address) {
         ObjectMapper objectMapper = new ObjectMapper();

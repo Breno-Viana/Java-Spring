@@ -7,7 +7,7 @@ import org.bg.picpay.picpaysimplificado.exceptions.error.CommercialAccountExcept
 import org.bg.picpay.picpaysimplificado.exceptions.error.NoBalanceException;
 import org.bg.picpay.picpaysimplificado.exceptions.error.ClientNotFoundException;
 import org.bg.picpay.picpaysimplificado.model.Transations.Transactions;
-import org.bg.picpay.picpaysimplificado.model.User.AccountType;
+import org.bg.picpay.picpaysimplificado.model.User.utils.AccountType;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
 import org.bg.picpay.picpaysimplificado.repository.TransactionRepository;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;

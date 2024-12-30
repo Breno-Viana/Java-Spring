@@ -20,19 +20,7 @@ public class Address {
     public Address() {
     }
 
-    //    "cep": "46500-000",
-    //    "logradouro": "",
-    //    "complemento": "",
-    //    "unidade": "",
-    //    "bairro": "",
-    //    "localidade": "Macaúbas",
-    //    "uf": "BA",
-    //    "estado": "Bahia",
-    //    "regiao": "Nordeste",
-    //    "ibge": "2919801",
-    //    "gia": "",
-    //    "ddd": "77",
-    //    "siafi": "3697"
+
 
 
     @Override

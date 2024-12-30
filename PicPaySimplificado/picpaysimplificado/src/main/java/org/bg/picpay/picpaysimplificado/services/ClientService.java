@@ -5,27 +5,25 @@ import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import org.bg.picpay.picpaysimplificado.exceptions.error.ClientNotFoundException;
 import org.bg.picpay.picpaysimplificado.exceptions.error.NullAddressException;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
+
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-
 import java.util.List;
 import java.util.UUID;
 
 
 @Service
-public class UserService {
+public class ClientService {
 
 
     private static ClientRepository userRepository;
 
-    public UserService(ClientRepository repository){
-        UserService.userRepository=repository;
+    public ClientService(ClientRepository repository){
+        ClientService.userRepository=repository;
     }
 
     public List<Client> finAllUsers(){
@@ -35,6 +33,7 @@ public class UserService {
 
     public static ResponseEntity<Client> addUser(ClientDTO clientDTO){
         var Address = SetAddress(clientDTO.cep(),clientDTO);
+
         Client client = new Client(clientDTO,Address);
         return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(client));
     }

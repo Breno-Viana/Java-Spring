@@ -1,4 +1,4 @@
-package org.bg.picpay.picpaysimplificado.model.User;
+package org.bg.picpay.picpaysimplificado.model.User.utils;
 
 import org.bg.picpay.picpaysimplificado.exceptions.error.NonTypeAccountException;
 

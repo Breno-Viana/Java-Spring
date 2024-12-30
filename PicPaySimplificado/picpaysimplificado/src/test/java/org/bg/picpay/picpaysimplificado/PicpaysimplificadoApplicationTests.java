@@ -5,7 +5,7 @@ import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
-import org.bg.picpay.picpaysimplificado.services.UserService;
+import org.bg.picpay.picpaysimplificado.services.ClientService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +34,22 @@ class PicpaysimplificadoApplicationTests {
         Assertions.assertEquals("77",address.getBody().ddd());
     }
 
+    private static final ClientDTO CLIENTE_TEST = new ClientDTO("joao", "de melo", "02993902893", "demelo@gmail.com", "jota1234", 'P',new BigDecimal(1000),"46500000","rua martiniano albano de souza",33);
+
+    private static final ClientDTO CLIENTE_TEST2 = new ClientDTO("rafael", "mesquita", "73888339338", "mesquita@gmail.com", "mesqu1234",'C',new BigDecimal(1212),"46500000","rua martiniano albano de souza",33);
 
 
     @Test
     void CriarClienteComEnderecoSemOServico(){
-        var cliente = new ClientDTO("joao", "de melo", "02993902893", "demelo@gmail.com", "jota1234", 'P',new BigDecimal(1000),"46500000","rua martiniano albano de souza",33);
 
         RestTemplate rt = new RestTemplate();
-        var addressDt = rt.getForEntity(String.format("http://viacep.com.br/ws/%s/json/",cliente.cep()), AddressApiConsumerDTO.class);
+        var addressDt = rt.getForEntity(String.format("http://viacep.com.br/ws/%s/json/",CLIENTE_TEST.cep()), AddressApiConsumerDTO.class);
         if (addressDt.getBody()==null){
             throw new RuntimeException();
         }
-        var address = new Address(addressDt.getBody(),cliente);
-        var client = new Client(cliente,address);
+        var address = new Address(addressDt.getBody(),CLIENTE_TEST);
+
+        var client = new Client(CLIENTE_TEST,address);
 
 
         clientRepository.save(client);
@@ -58,8 +61,7 @@ class PicpaysimplificadoApplicationTests {
 
     @Test
     void CriarClienteComEnderecoComOServico(){
-        var cliente = new ClientDTO("joao", "de melo", "02993902893", "demelo@gmail.com", "jota1234", 'P',new BigDecimal(1000),"46500000","rua martiniano albano de souza",33);
-        var response = UserService.addUser(cliente);
+        var response = ClientService.addUser(CLIENTE_TEST2);
         Assertions.assertNotNull(response);
         System.out.println(Objects.requireNonNull(response.getBody()).toString());
 

@@ -6,6 +6,7 @@ import org.bg.picpay.picpaysimplificado.exceptions.error.ClientNotFoundException
 import org.bg.picpay.picpaysimplificado.exceptions.error.CommercialAccountException;
 import org.bg.picpay.picpaysimplificado.exceptions.error.NoBalanceException;
 import org.bg.picpay.picpaysimplificado.exceptions.bodies.NoBalance;
+import org.bg.picpay.picpaysimplificado.exceptions.error.NullAddressException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -36,6 +37,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         NotFoundClientBody clientBody = new NotFoundClientBody("cliente nao encontrado",HttpStatus.NOT_FOUND,Instant.now());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(clientBody);
     }
+
+    @ExceptionHandler(NullAddressException.class)
+    private ResponseEntity<?> NullAddressException(){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("no address content");
+    }
+
 
 
 }
