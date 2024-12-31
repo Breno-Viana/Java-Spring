@@ -6,17 +6,19 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
+
 import java.util.UUID;
 
 @Entity
 @Table(name="tb_credentials")
-public class Login {
-    public Login() {
+public class Credentials {
+    public Credentials() {
     }
 
-    public Login(ClientDTO dto){
+    public Credentials(ClientDTO dto){
         this.email= dto.email();
         this.password=dto.passWord();
+        this.document=dto.document();
     }
 
     @Id
@@ -36,11 +38,16 @@ public class Login {
     @Column(name="pass_word")
     private String password;
 
+
+    @NotBlank
+    @Column(name="client_document")
+    private String document;
+
     private String role;
 
-    public UUID getId() {
+   /* public UUID getId() {
         return id;
-    }
+    }*/
 
     public void setId(UUID id) {
         this.id = id;
@@ -68,5 +75,13 @@ public class Login {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
     }
 }

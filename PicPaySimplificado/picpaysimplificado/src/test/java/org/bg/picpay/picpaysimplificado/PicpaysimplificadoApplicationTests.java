@@ -3,7 +3,7 @@ package org.bg.picpay.picpaysimplificado;
 import org.bg.picpay.picpaysimplificado.dto.AddressApiConsumerDTO;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
-import org.bg.picpay.picpaysimplificado.model.User.utils.Login;
+import org.bg.picpay.picpaysimplificado.model.User.utils.Credentials;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
 import org.bg.picpay.picpaysimplificado.services.ClientService;
@@ -49,7 +49,7 @@ class PicpaysimplificadoApplicationTests {
             throw new RuntimeException();
         }
         var address = new Address(addressDt.getBody(),CLIENTE_TEST);
-        var log = new Login(CLIENTE_TEST);
+        var log = new Credentials(CLIENTE_TEST);
         var client = new Client(CLIENTE_TEST,address,log);
 
 

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.utils.AccountType;
-import org.bg.picpay.picpaysimplificado.model.User.utils.Login;
+import org.bg.picpay.picpaysimplificado.model.User.utils.Credentials;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.model.converter.AddressConverter;
 import java.io.Serializable;
@@ -17,15 +17,15 @@ import static org.bg.picpay.picpaysimplificado.model.User.utils.AccountType.valu
 @Table(name = "tb_clients")
 public class Client implements Serializable {
 
-    public Client(ClientDTO dto, Address address, Login login) {
+    public Client(ClientDTO dto, Address address, Credentials credentials) {
         this.firstName = dto.firstName();
         this.lastName = dto.lastName();
-        this.document = dto.document();
         this.balance = dto.balance();
         this.address = address;
-        this.login=login;
+        this.credentials = credentials;
         setAccount(valueDB(dto.clientType()));
     }
+
 
     public Client() {
     }
@@ -46,10 +46,6 @@ public class Client implements Serializable {
     @Column(name = "cl_client_balance")
     private BigDecimal balance;
 
-    @NotBlank
-    @Column(unique = true, name = "cl_document")
-    private String document;
-
     @NotNull
     @Column(name = "client_type")
     private char type;
@@ -60,7 +56,7 @@ public class Client implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "credentials")
-    private Login login;
+    private Credentials credentials;
 
 
 
@@ -76,9 +72,6 @@ public class Client implements Serializable {
 
 
 
-    public String getDocument() {
-        return document;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -100,9 +93,6 @@ public class Client implements Serializable {
         this.balance = balance;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
-    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -116,16 +106,20 @@ public class Client implements Serializable {
         this.lastName = lastName;
     }
 
-    public Address getAddress() {
+    /*public Address getAddress() {
         return this.address;
-    }
+    }*/
 
     public void setAddress(Address address) {
         this.address = address;
     }
 
-    public void setLogin(Login login){
-        this.login=login;
+    public void setLogin(Credentials credentials){
+        this.credentials = credentials;
+    }
+
+    public Credentials getCredentials(){
+        return this.credentials;
     }
 
 

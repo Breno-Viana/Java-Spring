@@ -1,13 +1,11 @@
 package org.bg.picpay.picpaysimplificado.services;
 
-import jakarta.validation.Valid;
 import org.bg.picpay.picpaysimplificado.dto.AddressApiConsumerDTO;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.ClientNotFoundException;
-import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NoValidBodyException;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NullAddressException;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
-import org.bg.picpay.picpaysimplificado.model.User.utils.Login;
+import org.bg.picpay.picpaysimplificado.model.User.utils.Credentials;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
 import org.springframework.data.domain.Sort;
@@ -38,7 +36,7 @@ public class ClientService {
 
     public static ResponseEntity<Client> addClient(ClientDTO clientDTO){
             var Address = SetAddress(clientDTO.cep(), clientDTO);
-            var login = new Login(clientDTO);
+            var login = new Credentials(clientDTO);
             Client client = new Client(clientDTO, Address, login);
             return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(client));
 

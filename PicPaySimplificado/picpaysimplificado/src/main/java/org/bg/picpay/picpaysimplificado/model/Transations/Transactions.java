@@ -73,6 +73,6 @@ public class Transactions implements Serializable {
     }
 
     public TransactionDetailsDTO getTransactionDetailsDTO() {
-        return new TransactionDetailsDTO(id,  new SenderAndReceiverDTO(sender.getFirstName(), sender.getLastName(), sender.getDocument(), sender.getAccount()), new SenderAndReceiverDTO(receiver.getFirstName(), receiver.getLastName(), receiver.getDocument(), receiver.getAccount()), value, instantTime);
+        return new TransactionDetailsDTO(id,  new SenderAndReceiverDTO(sender.getFirstName(), sender.getLastName(), sender.getAccount()), new SenderAndReceiverDTO(receiver.getFirstName(), receiver.getLastName(), receiver.getAccount()), value, instantTime);
     }
 }
