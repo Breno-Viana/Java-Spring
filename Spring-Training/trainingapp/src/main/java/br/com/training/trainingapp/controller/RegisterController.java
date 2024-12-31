@@ -15,6 +15,7 @@ import br.com.training.trainingapp.services.RegisterService;
 import br.com.training.trainingapp.models.Registers;
 import jakarta.validation.Valid;
 import java.util.*;
+import static br.com.training.trainingapp.services.RegisterService.ListRegisters;
 
 @RestController
 @RequestMapping("/")
@@ -26,7 +27,7 @@ public class RegisterController {
 
     @GetMapping("pegar/listar")
     public List<Registers> ListReg() {
-        return registerService.ListRegisters();
+        return ListRegisters();
     }
 
  
@@ -37,17 +38,17 @@ public class RegisterController {
     }
 
     @PutMapping("edit/admin/{id}")
-    public ResponseEntity<Registers> Edit(@PathVariable UUID id, @RequestBody @Valid RegisterDto register) {
+    public ResponseEntity<Registers> Edit(@PathVariable String id, @RequestBody @Valid RegisterDto register) {
         return registerService.newEdit(id, register);
     }
 
     @DeleteMapping("delete/admin/id/{id}")
-    public ResponseEntity<Registers> DeleteRegister(@PathVariable UUID id){
+    public ResponseEntity<Registers> DeleteRegister(@PathVariable String id){
         return registerService.newDelet(id);
     }
 
-    @GetMapping("pegar/{id}")
-    public ResponseEntity<Registers> newGRegisters(@PathVariable UUID id){
+    @GetMapping("pegar/id/{id}")
+    public ResponseEntity<Registers> newGRegisters(@PathVariable String id){
         return registerService.getBYId(id);
     }
 
@@ -62,7 +63,7 @@ public class RegisterController {
     }
 
     @PutMapping("edit/admin/situacao/{id}/{situation}")
-    public ResponseEntity<Registers> uptSituation(@PathVariable UUID id, @PathVariable char situation){
+    public ResponseEntity<Registers> uptSituation(@PathVariable String id, @PathVariable char situation){
         return registerService.UpdateSituation(id, situation);
     }
 

@@ -1,11 +1,12 @@
 package org.bg.picpay.picpaysimplificado.services;
 
+import jakarta.validation.Valid;
 import org.bg.picpay.picpaysimplificado.dto.AddressApiConsumerDTO;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
-import org.bg.picpay.picpaysimplificado.exceptions.error.ClientNotFoundException;
-import org.bg.picpay.picpaysimplificado.exceptions.error.NullAddressException;
+import org.bg.picpay.picpaysimplificado.infra.exceptions.error.ClientNotFoundException;
+import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NoValidBodyException;
+import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NullAddressException;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
-
 import org.bg.picpay.picpaysimplificado.model.User.utils.Login;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
@@ -28,17 +29,19 @@ public class ClientService {
         ClientService.userRepository=repository;
     }
 
-    public List<Client> finAllUsers(){
+    public List<Client> finAllClients(){
         var sort = Sort.by(Sort.Direction.ASC,"firstName");
         return userRepository.findAll(sort);
     }
 
 
-    public static ResponseEntity<Client> addUser(ClientDTO clientDTO){
-        var Address = SetAddress(clientDTO.cep(),clientDTO);
-        var login = new Login(clientDTO);
-        Client client = new Client(clientDTO,Address,login);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(client));
+
+    public static ResponseEntity<Client> addClient(ClientDTO clientDTO){
+            var Address = SetAddress(clientDTO.cep(), clientDTO);
+            var login = new Login(clientDTO);
+            Client client = new Client(clientDTO, Address, login);
+            return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(client));
+
     }
 
 
@@ -52,11 +55,9 @@ public class ClientService {
     }
 
 
-    public ResponseEntity<Client> getUser(UUID i){
-        var user = userRepository.findById(i);
-       if (user.isEmpty()){
-           throw new ClientNotFoundException();
-       }
-       return new ResponseEntity<>(user.get(),HttpStatus.FOUND);
+    public ResponseEntity<Client> getClient(UUID i){
+        var client = userRepository.findById(i).orElseThrow(ClientNotFoundException::new);
+       return new ResponseEntity<>(client,HttpStatus.FOUND);
     }
+
 }

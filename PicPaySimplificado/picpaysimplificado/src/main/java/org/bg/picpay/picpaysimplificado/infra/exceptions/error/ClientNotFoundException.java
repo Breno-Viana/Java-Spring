@@ -1,4 +1,4 @@
-package org.bg.picpay.picpaysimplificado.exceptions.error;
+package org.bg.picpay.picpaysimplificado.infra.exceptions.error;
 
 import java.util.UUID;
 

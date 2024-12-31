@@ -37,7 +37,7 @@ public class MockUser implements ApplicationRunner {
 
         List<ClientDTO> ls = Arrays.asList(Dto1,Dto2,Dto3,Dto4,Dto5,Dto6,Dto7,Dto8,Dto9,Dto10);
         rangeClosed(0,9).forEach((i)->{
-            ClientService.addUser(ls.get(i));
+            ClientService.addClient(ls.get(i));
         });
     }
 }

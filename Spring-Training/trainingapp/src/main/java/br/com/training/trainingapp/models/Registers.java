@@ -17,10 +17,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "registers_tb")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 public class Registers {
 
     public Registers(RegisterDto registerDto){
@@ -30,10 +26,15 @@ public class Registers {
         this.userSituation = registerDto.situacao();
     }
 
-    @Id
+    public Registers() {
+    }
 
+
+
+    @Id
+    @Column(columnDefinition = "TEXT")
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private String id;
 
     @Column(nullable = false)
     @NotBlank(message = "Nao deixe esse campo em branco")
@@ -84,5 +85,75 @@ public class Registers {
 
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public LocalDate getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDate updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public LocalTime getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(LocalTime creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public LocalTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public UserSituation getUserSituation() {
+        return userSituation;
+    }
+
+    public void setUserSituation(UserSituation userSituation) {
+        this.userSituation = userSituation;
+    }
 }

@@ -1,23 +1,19 @@
 package org.bg.picpay.picpaysimplificado.model.User;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.utils.AccountType;
-
 import org.bg.picpay.picpaysimplificado.model.User.utils.Login;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.model.converter.AddressConverter;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
-
 import static org.bg.picpay.picpaysimplificado.model.User.utils.AccountType.valueDB;
 
-@Entity
+@Entity(name = "clients")
 @Table(name = "tb_clients")
 public class Client implements Serializable {
 
@@ -131,8 +127,8 @@ public class Client implements Serializable {
     public void setLogin(Login login){
         this.login=login;
     }
-    public Login getLogin(){
-        return login;
-    }
+
+
+
 }
 

@@ -1,6 +1,6 @@
 package org.bg.picpay.picpaysimplificado.model.User.utils;
 
-import org.bg.picpay.picpaysimplificado.exceptions.error.NonTypeAccountException;
+import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NonTypeAccountException;
 
 
 public enum AccountType {

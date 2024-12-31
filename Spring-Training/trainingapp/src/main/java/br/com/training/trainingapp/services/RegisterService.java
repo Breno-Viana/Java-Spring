@@ -19,13 +19,16 @@ import br.com.training.trainingapp.utils.UserSituation;
 @Service
 public class RegisterService {
 
-    @Autowired
-    private RepositoryForService repository;
+    private static RepositoryForService repository;
+
+    public RegisterService(RepositoryForService rService){
+        RegisterService.repository=rService;
+    }
 
     @Autowired
     private Check check;
 
-    public List<Registers> ListRegisters() {
+    public static List<Registers> ListRegisters() {
         return repository.findAll();
     }
 
@@ -37,11 +40,10 @@ public class RegisterService {
                     HttpStatus.BAD_REQUEST);
         }
         repository.save(register);
-        register = null;
         return new CustomResponse().getMessage("Baixa no registro", HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Registers> newEdit(UUID id, RegisterDto register) {
+    public ResponseEntity<Registers> newEdit(String id, RegisterDto register) {
         Optional<Registers> Old = repository.findById(id);
         if (Old.isEmpty()) {
             return new CustomResponse().getMessage("Registro nao encontrado", HttpStatus.NOT_FOUND);
@@ -56,7 +58,7 @@ public class RegisterService {
         return new CustomResponse().getMessage("Registro Alterado com Exito", HttpStatus.ACCEPTED);
     }
 
-    public ResponseEntity<Registers> newDelet(UUID id) {
+    public ResponseEntity<Registers> newDelet(String id) {
         Optional<Registers> regisOptional = repository.findById(id);
         if (regisOptional.isEmpty()) {
             return new CustomResponse().getMessage("Usuario nao encontrado", HttpStatus.BAD_REQUEST);
@@ -67,7 +69,7 @@ public class RegisterService {
                 HttpStatus.ACCEPTED);
     }
 
-    public ResponseEntity<Registers> getBYId(UUID id) {
+    public ResponseEntity<Registers> getBYId(String id) {
         Optional<Registers> optional = repository.findById(id);
         return optional.isEmpty() ? new CustomResponse().getMessage("Produto nao encontrado", HttpStatus.BAD_REQUEST)
                 : new CustomResponse().getMessage(optional.get(), HttpStatus.ACCEPTED);
@@ -85,7 +87,7 @@ public class RegisterService {
         return new CustomResponse().getMessage("delets", HttpStatus.ALREADY_REPORTED);
     }
 
-    public ResponseEntity<Registers> UpdateSituation(UUID id, char situacao) {
+    public ResponseEntity<Registers> UpdateSituation(String id, char situacao) {
         Optional<Registers> opt = repository.findById(id);
         if (opt.isEmpty()) {
             return new CustomResponse().getMessage("Registro nao encontrado", HttpStatus.BAD_REQUEST);

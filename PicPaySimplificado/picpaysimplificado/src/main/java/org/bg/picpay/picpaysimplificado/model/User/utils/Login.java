@@ -9,7 +9,7 @@ import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import java.util.UUID;
 
 @Entity
-@Table(name="tb_login")
+@Table(name="tb_credentials")
 public class Login {
     public Login() {
     }

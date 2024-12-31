@@ -3,6 +3,7 @@ package org.bg.picpay.picpaysimplificado;
 import org.bg.picpay.picpaysimplificado.dto.AddressApiConsumerDTO;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
+import org.bg.picpay.picpaysimplificado.model.User.utils.Login;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
 import org.bg.picpay.picpaysimplificado.services.ClientService;
@@ -34,9 +35,9 @@ class PicpaysimplificadoApplicationTests {
         Assertions.assertEquals("77",address.getBody().ddd());
     }
 
-    private static final ClientDTO CLIENTE_TEST = new ClientDTO("joao", "de melo", "02993902893", "demelo@gmail.com", "jota1234", 'P',new BigDecimal(1000),"46500000","rua martiniano albano de souza",33);
+    private static final ClientDTO CLIENTE_TEST = new ClientDTO("joao", "de melo", "02113902893", "dem@gmail.com", "jota1234", 'P',new BigDecimal(1000),"46500000","rua martiniano albano de souza",33);
 
-    private static final ClientDTO CLIENTE_TEST2 = new ClientDTO("rafael", "mesquita", "73888339338", "mesquita@gmail.com", "mesqu1234",'C',new BigDecimal(1212),"46500000","rua martiniano albano de souza",33);
+    private static final ClientDTO CLIENTE_TEST2 = new ClientDTO("rafael", "mesquita", "7380101339338", "mesqu@gmail.com", "mesqu1234",'C',new BigDecimal(1212),"46500000","rua martiniano albano de souza",33);
 
 
     @Test
@@ -48,8 +49,8 @@ class PicpaysimplificadoApplicationTests {
             throw new RuntimeException();
         }
         var address = new Address(addressDt.getBody(),CLIENTE_TEST);
-
-        var client = new Client(CLIENTE_TEST,address);
+        var log = new Login(CLIENTE_TEST);
+        var client = new Client(CLIENTE_TEST,address,log);
 
 
         clientRepository.save(client);
@@ -61,7 +62,7 @@ class PicpaysimplificadoApplicationTests {
 
     @Test
     void CriarClienteComEnderecoComOServico(){
-        var response = ClientService.addUser(CLIENTE_TEST2);
+        var response = ClientService.addClient(CLIENTE_TEST2);
         Assertions.assertNotNull(response);
         System.out.println(Objects.requireNonNull(response.getBody()).toString());
 

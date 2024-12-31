@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface RepositoryForService extends JpaRepository<Registers, UUID> {
+public interface RepositoryForService extends JpaRepository<Registers, String> {
     Optional<Registers> findByemail(String email);
 }

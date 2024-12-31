@@ -2,6 +2,8 @@ package org.bg.picpay.picpaysimplificado.model.Transations;
 
 
 import jakarta.persistence.*;
+import org.bg.picpay.picpaysimplificado.dto.SenderAndReceiverDTO;
+import org.bg.picpay.picpaysimplificado.dto.TransactionDetailsDTO;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
 
 import java.io.Serializable;
@@ -11,7 +13,7 @@ import java.util.UUID;
 
 
 @Entity
-@Table(name="tb_transactions")
+@Table(name = "tb_transactions")
 public class Transactions implements Serializable {
 
 
@@ -26,7 +28,7 @@ public class Transactions implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name="transaction_id")
+    @Column(name = "transaction_id")
     private UUID id;
 
     @JoinColumn(name = "sender_id")
@@ -34,60 +36,43 @@ public class Transactions implements Serializable {
     private Client sender;
 
 
-    @JoinColumn(name="receiver_id")
+    @JoinColumn(name = "receiver_id")
     @ManyToOne(cascade = CascadeType.ALL)
     private Client receiver;
 
     @Column(name = "transaction_value")
     private BigDecimal value;
 
-    @Column(name="transaction_instant")
+    @Column(name = "transaction_instant")
     private LocalDateTime instantTime;
 
 
-
     @PrePersist
-    public void Instant(){
+    public void Instant() {
         instantTime = LocalDateTime.now();
-    }
-
-    public LocalDateTime getInstantTime() {
-        return instantTime;
     }
 
     public void setInstantTime(LocalDateTime instantTime) {
         this.instantTime = instantTime;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public Client getSender() {
-        return sender;
     }
 
     public void setSender(Client sender) {
         this.sender = sender;
     }
 
-    public Client getReceiver() {
-        return receiver;
-    }
-
     public void setReceiver(Client receiver) {
         this.receiver = receiver;
     }
 
-    public BigDecimal getValue() {
-        return value;
-    }
-
     public void setValue(BigDecimal amount) {
         this.value = amount;
+    }
+
+    public TransactionDetailsDTO getTransactionDetailsDTO() {
+        return new TransactionDetailsDTO(id,  new SenderAndReceiverDTO(sender.getFirstName(), sender.getLastName(), sender.getDocument(), sender.getAccount()), new SenderAndReceiverDTO(receiver.getFirstName(), receiver.getLastName(), receiver.getDocument(), receiver.getAccount()), value, instantTime);
     }
 }

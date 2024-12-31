@@ -1,11 +1,11 @@
 package org.bg.picpay.picpaysimplificado.services;
 
 
-import jakarta.transaction.Transactional;
 import org.bg.picpay.picpaysimplificado.dto.TransactionDTO;
-import org.bg.picpay.picpaysimplificado.exceptions.error.CommercialAccountException;
-import org.bg.picpay.picpaysimplificado.exceptions.error.NoBalanceException;
-import org.bg.picpay.picpaysimplificado.exceptions.error.ClientNotFoundException;
+import org.bg.picpay.picpaysimplificado.infra.exceptions.error.CommercialAccountException;
+import org.bg.picpay.picpaysimplificado.infra.exceptions.error.EqualsClientException;
+import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NoBalanceException;
+import org.bg.picpay.picpaysimplificado.infra.exceptions.error.ClientNotFoundException;
 import org.bg.picpay.picpaysimplificado.model.Transations.Transactions;
 import org.bg.picpay.picpaysimplificado.model.User.utils.AccountType;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
@@ -14,9 +14,9 @@ import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,14 +33,19 @@ public class TransactionService {
     }
 
 
-    private void ValidateTransaction(UUID senderId, BigDecimal amount){
+    private void ValidateTransaction(UUID senderId,UUID receiverID, BigDecimal amount){
         Client sender = userRepository.findById(senderId).orElseThrow(ClientNotFoundException::new);
+        Client receiver = userRepository.findById(receiverID).orElseThrow(ClientNotFoundException::new);
         if (sender.getAccount().equals(AccountType.COMMERCIAL)){
             throw new CommercialAccountException();
         }
 
         if (sender.getBalance().compareTo(amount)<0){
             throw new NoBalanceException(amount.toString());
+        }
+
+        if (sender == receiver){
+            throw new EqualsClientException();
         }
     }
 
@@ -50,13 +55,12 @@ public class TransactionService {
         Client sender = userRepository.findById(dto.senderID()).orElseThrow(ClientNotFoundException::new);
         Client receiver = userRepository.findById(dto.receiverID()).orElseThrow(ClientNotFoundException::new);
 
-        ValidateTransaction(dto.senderID(),dto.amount());
+        ValidateTransaction(dto.senderID(),dto.receiverID(),dto.amount());
 
         receiver.setBalance(receiver.getBalance().add(dto.amount()));
         sender.setBalance(sender.getBalance().subtract(dto.amount()));
 
         Transactions transactions = new Transactions(sender,receiver,dto.amount());
-        userRepository.saveAll(Arrays.asList(sender,receiver));
         transactionRepository.save(transactions);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

@@ -1,4 +1,4 @@
-package org.bg.picpay.picpaysimplificado.exceptions.bodies;
+package org.bg.picpay.picpaysimplificado.infra.exceptions.bodies;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

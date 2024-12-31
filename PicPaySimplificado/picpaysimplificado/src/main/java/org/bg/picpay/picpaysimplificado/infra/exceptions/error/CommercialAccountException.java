@@ -1,4 +1,4 @@
-package org.bg.picpay.picpaysimplificado.exceptions.error;
+package org.bg.picpay.picpaysimplificado.infra.exceptions.error;
 
 public class CommercialAccountException extends RuntimeException {
     public CommercialAccountException(String message) {

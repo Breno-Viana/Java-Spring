@@ -1,4 +1,4 @@
-package org.bg.picpay.picpaysimplificado.exceptions.error;
+package org.bg.picpay.picpaysimplificado.infra.exceptions.error;
 
 public class NullAddressException extends RuntimeException {
     public NullAddressException(String message) {

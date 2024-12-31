@@ -2,6 +2,7 @@ package org.bg.picpay.picpaysimplificado.controllers;
 
 import jakarta.validation.Valid;
 import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
+import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NoValidBodyException;
 import org.bg.picpay.picpaysimplificado.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,22 +19,21 @@ public class ClientController {
     private ClientService clientService;
 
 
-
     @GetMapping("/list")
-    public List<?> findAllUser(){
-        return clientService.finAllUsers();
+    public List<?> findAllUser() {
+        return clientService.finAllClients();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable UUID id){
-        return clientService.getUser(id);
+    public ResponseEntity<?> getClient(@PathVariable UUID id) {
+        return clientService.getClient(id);
     }
 
 
     @PostMapping
-    public ResponseEntity<?> addUser(@RequestBody @Valid ClientDTO userDto){
-        return ClientService.addUser(userDto);
-    }
+    public ResponseEntity<?> addUser(@RequestBody @Valid ClientDTO clientDto) throws NoValidBodyException{
+            return ClientService.addClient(clientDto);
 
+    }
 
 }
