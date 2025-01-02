@@ -1,7 +1,7 @@
 package org.bg.picpay.picpaysimplificado.controllers;
 
 import jakarta.validation.Valid;
-import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
+import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NoValidBodyException;
 import org.bg.picpay.picpaysimplificado.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;

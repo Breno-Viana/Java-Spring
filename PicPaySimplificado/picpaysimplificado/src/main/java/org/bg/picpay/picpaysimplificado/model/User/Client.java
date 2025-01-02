@@ -3,7 +3,7 @@ package org.bg.picpay.picpaysimplificado.model.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
+import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.utils.AccountType;
 import org.bg.picpay.picpaysimplificado.model.User.utils.Credentials;
 import org.bg.picpay.picpaysimplificado.model.address.Address;

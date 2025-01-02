@@ -1,7 +1,7 @@
 package org.bg.picpay.picpaysimplificado;
 
-import org.bg.picpay.picpaysimplificado.dto.AddressApiConsumerDTO;
-import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
+import org.bg.picpay.picpaysimplificado.dto.utils.AddressApiConsumerDTO;
+import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
 import org.bg.picpay.picpaysimplificado.model.User.utils.Credentials;
 import org.bg.picpay.picpaysimplificado.model.address.Address;

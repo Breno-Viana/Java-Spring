@@ -2,8 +2,8 @@ package org.bg.picpay.picpaysimplificado.model.Transations;
 
 
 import jakarta.persistence.*;
-import org.bg.picpay.picpaysimplificado.dto.SenderAndReceiverDTO;
-import org.bg.picpay.picpaysimplificado.dto.TransactionDetailsDTO;
+import org.bg.picpay.picpaysimplificado.dto.utils.SenderAndReceiverDTO;
+import org.bg.picpay.picpaysimplificado.dto.utils.TransactionDetailsDTO;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
 
 import java.io.Serializable;

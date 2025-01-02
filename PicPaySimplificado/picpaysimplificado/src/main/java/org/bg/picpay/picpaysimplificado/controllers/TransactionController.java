@@ -1,6 +1,6 @@
 package org.bg.picpay.picpaysimplificado.controllers;
 
-import org.bg.picpay.picpaysimplificado.dto.TransactionDTO;
+import org.bg.picpay.picpaysimplificado.dto.data.TransactionDTO;
 import org.bg.picpay.picpaysimplificado.model.Transations.Transactions;
 import org.bg.picpay.picpaysimplificado.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;

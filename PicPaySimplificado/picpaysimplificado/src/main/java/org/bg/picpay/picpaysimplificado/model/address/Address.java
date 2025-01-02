@@ -1,7 +1,7 @@
 package org.bg.picpay.picpaysimplificado.model.address;
 
-import org.bg.picpay.picpaysimplificado.dto.AddressApiConsumerDTO;
-import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
+import org.bg.picpay.picpaysimplificado.dto.utils.AddressApiConsumerDTO;
+import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
 import org.springframework.stereotype.Component;
 
 @Component

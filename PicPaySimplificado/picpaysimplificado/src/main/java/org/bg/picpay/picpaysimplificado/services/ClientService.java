@@ -1,7 +1,7 @@
 package org.bg.picpay.picpaysimplificado.services;
 
-import org.bg.picpay.picpaysimplificado.dto.AddressApiConsumerDTO;
-import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
+import org.bg.picpay.picpaysimplificado.dto.utils.AddressApiConsumerDTO;
+import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.ClientNotFoundException;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NullAddressException;
 import org.bg.picpay.picpaysimplificado.model.User.Client;

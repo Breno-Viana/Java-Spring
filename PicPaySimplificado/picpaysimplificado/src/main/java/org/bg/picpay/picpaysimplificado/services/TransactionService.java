@@ -1,7 +1,7 @@
 package org.bg.picpay.picpaysimplificado.services;
 
 
-import org.bg.picpay.picpaysimplificado.dto.TransactionDTO;
+import org.bg.picpay.picpaysimplificado.dto.data.TransactionDTO;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.CommercialAccountException;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.EqualsClientException;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NoBalanceException;

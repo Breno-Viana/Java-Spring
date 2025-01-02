@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.bg.picpay.picpaysimplificado.dto.ClientDTO;
+import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
+import org.bg.picpay.picpaysimplificado.infra.security.admin.AdminDTO;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.UUID;
 
@@ -15,8 +17,16 @@ public class Credentials {
     public Credentials() {
     }
 
+
+    public Credentials(AdminDTO dto){
+        this.email=dto.email();
+        this.document=dto.document();
+        this.password=dto.password();
+        this.role=dto.role();
+    }
+
     public Credentials(ClientDTO dto){
-        this.email= dto.email();
+        this.email=dto.email();
         this.password=dto.passWord();
         this.document=dto.document();
     }
@@ -33,15 +43,16 @@ public class Credentials {
     private String email;
 
 
+    @NotBlank
+    @Column(name="client_document")
+    private String document;
+
+
     @NotNull
     @NotBlank
     @Column(name="pass_word")
     private String password;
 
-
-    @NotBlank
-    @Column(name="client_document")
-    private String document;
 
     @Enumerated(EnumType.STRING)
     private ClientRoles role;
