@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class LoginController {
     private final JwtEncoder jwtEncoder;
     private final UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public LoginController(JwtEncoder j, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
         this.jwtEncoder=j;
@@ -53,7 +53,7 @@ public class LoginController {
         var claim = JwtClaimsSet.builder()
                 .issuer("security")
                 .subject(user.get().getId().toString())
-                .claim("scope:",scopes)
+                .claim("role:",scopes)
                 .expiresAt(expire)
                 .issuedAt(Instant.now())
                 .build();

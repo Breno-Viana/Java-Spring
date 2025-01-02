@@ -43,7 +43,8 @@ public class Credentials {
     @Column(name="client_document")
     private String document;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private ClientRoles role;
 
    /* public UUID getId() {
         return id;
@@ -69,12 +70,12 @@ public class Credentials {
         this.password = password;
     }
 
-    public String getRole() {
+    public ClientRoles getRole() {
         return role;
     }
 
     public void setRole(String role) {
-        this.role = role;
+        this.role = ClientRoles.valueOf(role);
     }
 
     public String getDocument() {

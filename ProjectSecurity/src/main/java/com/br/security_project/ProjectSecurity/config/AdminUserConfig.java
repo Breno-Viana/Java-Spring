@@ -23,8 +23,9 @@ public class AdminUserConfig implements CommandLineRunner {
     @Autowired
     private RoleRepository repository;
 
-    @Override
+
     @Transactional
+   @Override
     public void run(String... args) throws Exception {
         var role = repository.findByname(Role.Values.ADMIN.name()).orElseThrow();
         var admin = userRepository.findByuserName("admin");
