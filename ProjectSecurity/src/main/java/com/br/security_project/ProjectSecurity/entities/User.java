@@ -1,13 +1,19 @@
 package com.br.security_project.ProjectSecurity.entities;
 
+import com.br.security_project.ProjectSecurity.dto.LoginRequest;
+import com.br.security_project.ProjectSecurity.dto.UserDTO;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name ="users_tb")
+@Table(name = "users_tb")
 public class User {
+
+    public User() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -16,17 +22,16 @@ public class User {
     @Column(unique = true)
     private String userName;
 
-    private String passWord;
+    private String PassWord;
 
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name="user_roles",
-            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name="role_id",referencedColumnName = "id")
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<Role> roles;
-
 
 
     public UUID getId() {
@@ -46,11 +51,11 @@ public class User {
     }
 
     public String getPassWord() {
-        return passWord;
+        return PassWord;
     }
 
     public void setPassWord(String passWord) {
-        this.passWord = passWord;
+        this.PassWord = passWord;
     }
 
     public Set<Role> getRoles() {
@@ -59,5 +64,9 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.password(), this.PassWord);
     }
 }

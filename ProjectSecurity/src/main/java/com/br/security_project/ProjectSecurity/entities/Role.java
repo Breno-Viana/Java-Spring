@@ -19,7 +19,7 @@ public class Role {
         BASIC(2L),
         ADMIN(1L);
 
-        private Long roleID;
+        private final Long roleID;
 
         Values(Long id){
             this.roleID=id;
@@ -43,7 +43,7 @@ public class Role {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        this.name = Name;
     }
 }
