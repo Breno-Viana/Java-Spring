@@ -4,7 +4,7 @@ import javax.management.relation.RoleNotFoundException;
 import java.util.Objects;
 
 public enum ClientRoles {
-    ADMIN("admin"),
+    ADMIN("adm"),
     BASIC("basic");
 
     private final String nameRole;
@@ -14,10 +14,10 @@ public enum ClientRoles {
     }
 
 
-    public ClientRoles valuesRole(String role) throws RoleNotFoundException {
+    public static ClientRoles valuesRole(String role) throws RoleNotFoundException {
         for (ClientRoles cl : ClientRoles.values()){
             if (Objects.equals(role, cl.nameRole)){
-                return this.valuesRole(role);
+                return valuesRole(role);
             }
         }
         throw new RoleNotFoundException("Role nao encontrada");

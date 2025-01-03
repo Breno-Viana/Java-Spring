@@ -5,6 +5,7 @@ import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.ClientNotFoundException;
 import org.bg.picpay.picpaysimplificado.infra.exceptions.error.NullAddressException;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
+import org.bg.picpay.picpaysimplificado.model.User.utils.ClientRoles;
 import org.bg.picpay.picpaysimplificado.model.User.utils.Credentials;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
@@ -34,9 +35,10 @@ public class ClientService {
 
 
 
-    public static ResponseEntity<Client> addClient(ClientDTO clientDTO){
+    public static ResponseEntity<Client> addClient(ClientDTO clientDTO) throws Exception{
             var Address = SetAddress(clientDTO.cep(), clientDTO);
             var login = new Credentials(clientDTO);
+            login.setRole(ClientRoles.BASIC);
             Client client = new Client(clientDTO, Address, login);
             return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(client));
 

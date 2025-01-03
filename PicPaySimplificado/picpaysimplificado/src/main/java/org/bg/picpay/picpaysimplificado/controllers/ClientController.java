@@ -30,8 +30,8 @@ public class ClientController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<?> addUser(@RequestBody @Valid ClientDTO clientDto) throws NoValidBodyException{
+    @PostMapping("/register")
+    public ResponseEntity<?> addUser(@RequestBody @Valid ClientDTO clientDto) throws Exception {
             return ClientService.addClient(clientDto);
 
     }

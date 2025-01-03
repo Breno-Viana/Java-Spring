@@ -6,29 +6,38 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
-import org.bg.picpay.picpaysimplificado.infra.security.admin.AdminDTO;
+import org.bg.picpay.picpaysimplificado.dto.utils.AdminDTO;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name="tb_credentials")
-public class Credentials {
+public class Credentials implements UserDetails {
+
+
     public Credentials() {
     }
 
 
     public Credentials(AdminDTO dto){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.email=dto.email();
         this.document=dto.document();
-        this.password=dto.password();
+        this.password= encoder.encode(dto.password());
         this.role=dto.role();
     }
 
     public Credentials(ClientDTO dto){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.email=dto.email();
-        this.password=dto.passWord();
+        this.password=encoder.encode(dto.passWord());
         this.document=dto.document();
+        this.role=dto.role();
     }
 
     @Id
@@ -73,8 +82,19 @@ public class Credentials {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     public void setPassword(String password) {
@@ -85,8 +105,8 @@ public class Credentials {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = ClientRoles.valueOf(role);
+    public void setRole(ClientRoles role) {
+        this.role = role;
     }
 
     public String getDocument() {
@@ -95,5 +115,10 @@ public class Credentials {
 
     public void setDocument(String document) {
         this.document = document;
+    }
+
+    public boolean isCorrectPassWord(String password){
+        BCryptPasswordEncoder enc = new BCryptPasswordEncoder();
+        return enc.matches(password,this.password);
     }
 }

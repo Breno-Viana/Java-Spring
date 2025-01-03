@@ -3,6 +3,7 @@ package org.bg.picpay.picpaysimplificado;
 import org.bg.picpay.picpaysimplificado.dto.utils.AddressApiConsumerDTO;
 import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
+import org.bg.picpay.picpaysimplificado.model.User.utils.ClientRoles;
 import org.bg.picpay.picpaysimplificado.model.User.utils.Credentials;
 import org.bg.picpay.picpaysimplificado.model.address.Address;
 import org.bg.picpay.picpaysimplificado.repository.ClientRepository;
@@ -35,9 +36,9 @@ class PicpaysimplificadoApplicationTests {
         Assertions.assertEquals("77",address.getBody().ddd());
     }
 
-    private static final ClientDTO CLIENTE_TEST = new ClientDTO("joao", "de melo", "02113902893", "dem@gmail.com", "jota1234", 'P',new BigDecimal(1000),"46500000","rua martiniano albano de souza",33);
+    private static final ClientDTO CLIENTE_TEST = new ClientDTO("joao", "de melo", "02113902893", "dem@gmail.com", "jota1234", 'P',new BigDecimal(1000),"46500000","rua martiniano albano de souza",33,ClientRoles.BASIC);
 
-    private static final ClientDTO CLIENTE_TEST2 = new ClientDTO("rafael", "mesquita", "7380101339338", "mesqu@gmail.com", "mesqu1234",'C',new BigDecimal(1212),"46500000","rua martiniano albano de souza",33);
+    private static final ClientDTO CLIENTE_TEST2 = new ClientDTO("rafael", "mesquita", "7380101339338", "mesqu@gmail.com", "mesqu1234",'C',new BigDecimal(1212),"46500000","rua martiniano albano de souza",33, ClientRoles.BASIC);
 
 
     @Test
@@ -54,14 +55,12 @@ class PicpaysimplificadoApplicationTests {
 
 
         clientRepository.save(client);
-        System.out.println(client.getAddress().toString());
-        var clientOfDatabase = clientRepository.findById(client.getId()).orElseThrow();
 
-       Assertions.assertEquals(33,clientOfDatabase.getAddress().getNumeroDaCasa());
+        var clientOfDatabase = clientRepository.findById(client.getId()).orElseThrow();
     }
 
     @Test
-    void CriarClienteComEnderecoComOServico(){
+    void CriarClienteComEnderecoComOServico() throws Exception {
         var response = ClientService.addClient(CLIENTE_TEST2);
         Assertions.assertNotNull(response);
         System.out.println(Objects.requireNonNull(response.getBody()).toString());

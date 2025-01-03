@@ -1,4 +1,4 @@
-package org.bg.picpay.picpaysimplificado.dto.request;
+package org.bg.picpay.picpaysimplificado.dto.requests;
 
 import jakarta.validation.constraints.NotBlank;
 

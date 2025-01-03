@@ -3,6 +3,7 @@ package org.bg.picpay.picpaysimplificado.dto.data;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.bg.picpay.picpaysimplificado.model.User.utils.ClientRoles;
 
 import java.math.BigDecimal;
 
@@ -15,6 +16,7 @@ public record ClientDTO(@NotBlank String firstName,
                         @NotNull BigDecimal balance,
                         @NotBlank String cep,
                         @NotBlank String streetName,
-                        @NotNull Integer houseNumber) {
+                        @NotNull Integer houseNumber,
+                        ClientRoles role) {
 
 }
