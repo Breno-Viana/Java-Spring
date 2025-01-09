@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("login")
+@RequestMapping("/login")
 public class LoginController {
 
 
     @Autowired
-    private LoginService login;
+    private LoginService service;
 
     @Autowired
     private LoginRepository loginRepository;
@@ -25,6 +25,7 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity<LoginResponse>LOGIN(@RequestBody LoginRequest loginRequest) throws Exception {
-        return login.LOGIN(loginRequest);
+
+        return service.LOGIN(loginRequest);
     }
 }

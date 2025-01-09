@@ -3,6 +3,9 @@ package org.bg.picpay.picpaysimplificado.model.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
 import org.bg.picpay.picpaysimplificado.model.User.utils.AccountType;
 import org.bg.picpay.picpaysimplificado.model.User.utils.Credentials;
@@ -13,13 +16,14 @@ import java.math.BigDecimal;
 import java.util.UUID;
 import static org.bg.picpay.picpaysimplificado.model.User.utils.AccountType.valueDB;
 
-@Entity(name = "clients")
+@Entity(name="Client")
 @Table(name = "tb_clients")
+@Setter
 public class Client implements Serializable {
 
     public Client(ClientDTO dto, Address address, Credentials credentials) {
-        this.firstName = dto.firstName();
-        this.lastName = dto.lastName();
+        this.firstName = dto.firstname();
+        this.lastName = dto.lastname();
         this.balance = dto.balance();
         this.address = address;
         this.credentials = credentials;
@@ -52,6 +56,7 @@ public class Client implements Serializable {
 
     @Column(columnDefinition = "JSON")
     @Convert(converter = AddressConverter.class)
+    @Getter(AccessLevel.NONE)
     private Address address;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -87,35 +92,6 @@ public class Client implements Serializable {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /*public Address getAddress() {
-        return this.address;
-    }*/
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setLogin(Credentials credentials){
-        this.credentials = credentials;
     }
 
     public Credentials getCredentials(){

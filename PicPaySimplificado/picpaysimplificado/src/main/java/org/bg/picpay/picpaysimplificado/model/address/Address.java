@@ -1,9 +1,13 @@
 package org.bg.picpay.picpaysimplificado.model.address;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bg.picpay.picpaysimplificado.dto.utils.AddressApiConsumerDTO;
 import org.bg.picpay.picpaysimplificado.dto.data.ClientDTO;
 import org.springframework.stereotype.Component;
 
+@Setter
+@Getter
 @Component
 public class Address {
     public Address(AddressApiConsumerDTO dto, ClientDTO clientDTO){
@@ -13,8 +17,8 @@ public class Address {
         this.estado= dto.estado();
         this.regiao=dto.regiao();
         this.uf=dto.uf();
-        this.numeroDaCasa=clientDTO.houseNumber();
-        this.rua= clientDTO.streetName();
+        this.numeroDaCasa=clientDTO.Number();
+        this.rua= clientDTO.street();
     }
 
     public Address() {
@@ -47,67 +51,4 @@ public class Address {
     private Integer numeroDaCasa;
 
 
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getUf() {
-        return uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getRegiao() {
-        return regiao;
-    }
-
-    public void setRegiao(String regiao) {
-        this.regiao = regiao;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
-    public Integer getNumeroDaCasa() {
-        return numeroDaCasa;
-    }
-
-    public void setNumeroDaCasa(Integer numeroDaCasa) {
-        this.numeroDaCasa = numeroDaCasa;
-    }
 }

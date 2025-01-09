@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface LoginRepository extends JpaRepository<Credentials, UUID> {
     Optional<Credentials> findByemail(String Email);
 
+    Optional<Credentials> findByDocument(String document);
+
 }

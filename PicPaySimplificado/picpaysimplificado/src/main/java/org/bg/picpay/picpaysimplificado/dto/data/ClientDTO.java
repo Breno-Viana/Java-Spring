@@ -3,20 +3,21 @@ package org.bg.picpay.picpaysimplificado.dto.data;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.bg.picpay.picpaysimplificado.model.User.utils.ClientRoles;
+
 
 import java.math.BigDecimal;
+import java.util.Set;
 
-public record ClientDTO(@NotBlank String firstName,
-                        @NotBlank String lastName,
+public record ClientDTO(@NotBlank String firstname,
+                        @NotBlank String lastname,
                         @NotBlank String document,
                         @NotBlank String email,
-                        @NotBlank String passWord,
+                        @NotBlank String password,
                         @NotNull Character clientType,
                         @NotNull BigDecimal balance,
                         @NotBlank String cep,
-                        @NotBlank String streetName,
-                        @NotNull Integer houseNumber,
-                        ClientRoles role) {
+                        @NotBlank String street,
+                        @NotNull Integer Number,
+                        Integer codeRole) {
 
 }

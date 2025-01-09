@@ -56,4 +56,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
+    @ExceptionHandler(DuplicateCredentialException.class)
+    private ResponseEntity<?> Duplicate(){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario ja cadastrado");
+    }
+
+    @ExceptionHandler(IllegalCredentialsException.class)
+    private ResponseEntity<?> Illegal(){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario ou senha incorretos");
+    }
+
 }

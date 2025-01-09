@@ -2,6 +2,7 @@ package org.bg.picpay.picpaysimplificado.model.Transations;
 
 
 import jakarta.persistence.*;
+import lombok.Setter;
 import org.bg.picpay.picpaysimplificado.dto.utils.SenderAndReceiverDTO;
 import org.bg.picpay.picpaysimplificado.dto.utils.TransactionDetailsDTO;
 import org.bg.picpay.picpaysimplificado.model.User.Client;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 
+@Setter
 @Entity
 @Table(name = "tb_transactions")
 public class Transactions implements Serializable {
@@ -52,27 +54,7 @@ public class Transactions implements Serializable {
         instantTime = LocalDateTime.now();
     }
 
-    public void setInstantTime(LocalDateTime instantTime) {
-        this.instantTime = instantTime;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setSender(Client sender) {
-        this.sender = sender;
-    }
-
-    public void setReceiver(Client receiver) {
-        this.receiver = receiver;
-    }
-
-    public void setValue(BigDecimal amount) {
-        this.value = amount;
-    }
-
-    public TransactionDetailsDTO getTransactionDetailsDTO() {
+    public TransactionDetailsDTO getTransactionDetails() {
         return new TransactionDetailsDTO(id,  new SenderAndReceiverDTO(sender.getFirstName(), sender.getLastName(), sender.getAccount()), new SenderAndReceiverDTO(receiver.getFirstName(), receiver.getLastName(), receiver.getAccount()), value, instantTime);
     }
 }

@@ -48,11 +48,11 @@ public class NotFoundClientBody {
         this.instant = instant;
     }
 
-   /* public UUID getId_not_founded() {
+   /* public.key UUID getId_not_founded() {
         return id_not_founded;
     }
 
-    public void setId_not_founded(UUID id_not_founded) {
+    public.key void setId_not_founded(UUID id_not_founded) {
         this.id_not_founded = id_not_founded;
     }*/
 }
