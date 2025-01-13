@@ -28,6 +28,7 @@ public class AdminUserConfig implements CommandLineRunner {
    @Override
     public void run(String... args) throws Exception {
         var role = repository.findByname(Role.Values.ADMIN.name()).orElseThrow();
+        var role2 = repository.findByname(Role.Values.BASIC.name()).orElseThrow();
         var admin = userRepository.findByuserName("admin");
 
         admin.ifPresentOrElse(
@@ -38,7 +39,7 @@ public class AdminUserConfig implements CommandLineRunner {
                     var user = new User();
                     user.setUserName("admin");
                     user.setPassWord(encoder.encode("12345678910"));
-                    user.setRoles(Set.of(role));
+                    user.setRoles(Set.of(role,role2));
                     userRepository.save(user);
                 }
         );

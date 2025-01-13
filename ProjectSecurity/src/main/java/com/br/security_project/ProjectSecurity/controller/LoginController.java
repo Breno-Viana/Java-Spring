@@ -53,7 +53,7 @@ public class LoginController {
         var claim = JwtClaimsSet.builder()
                 .issuer("security")
                 .subject(user.get().getId().toString())
-                .claim("role:",scopes)
+                .claim("scope:",scopes)
                 .expiresAt(expire)
                 .issuedAt(Instant.now())
                 .build();

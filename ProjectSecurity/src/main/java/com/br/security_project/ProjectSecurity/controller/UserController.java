@@ -54,7 +54,6 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    //@PreAuthorize("hasAuthority('ROLE_admin')")
     public ResponseEntity<List<User>> listAll(){
         return ResponseEntity.ok().body(userRepository.findAll());
     }
