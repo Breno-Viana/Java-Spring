@@ -11,5 +11,6 @@ public record ClientDto(@NotBlank String firstname,
                         @NotBlank @Email String email,
                         @NotBlank String document,
                         @NotBlank String password,
-                        BigDecimal amount) {
+                        BigDecimal amount,
+                        Character clientType) {
 }

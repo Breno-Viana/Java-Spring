@@ -11,5 +11,6 @@ public class DuplicateExceptions extends RuntimeException {
     }
 
     public DuplicateExceptions(Client client) {
+
     }
 }

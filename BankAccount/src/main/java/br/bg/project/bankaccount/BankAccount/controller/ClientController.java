@@ -1,0 +1,31 @@
+package br.bg.project.bankaccount.BankAccount.controller;
+
+import br.bg.project.bankaccount.BankAccount.dto.ClientDto;
+import br.bg.project.bankaccount.BankAccount.models.Client;
+import br.bg.project.bankaccount.BankAccount.services.ClientService;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("c")
+public class ClientController {
+
+    @Autowired
+    private ClientService clientService;
+
+
+    @PostMapping("/sign-up")
+    public ResponseEntity<Client> addClient(@RequestBody @Valid ClientDto dto) throws Exception {
+        return clientService.REGISTER(dto);
+    }
+
+    @GetMapping("/l")
+    public List<Client> LIST(){
+        return clientService.LIST();
+    }
+}

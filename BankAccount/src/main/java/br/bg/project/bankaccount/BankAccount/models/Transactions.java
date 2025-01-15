@@ -11,10 +11,15 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "tb_transactions")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Transactions {
+    public Transactions() {
+    }
 
+    public Transactions(BigDecimal value, Client receiver, Client sender) {
+        this.value = value;
+        this.receiver = receiver;
+        this.sender = sender;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
