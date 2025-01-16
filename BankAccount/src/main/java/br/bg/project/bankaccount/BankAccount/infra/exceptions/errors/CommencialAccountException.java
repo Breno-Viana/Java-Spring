@@ -1,4 +1,4 @@
-package br.bg.project.bankaccount.BankAccount.infra.errors;
+package br.bg.project.bankaccount.BankAccount.infra.exceptions.errors;
 
 public class CommencialAccountException extends RuntimeException {
     public CommencialAccountException(String message) {

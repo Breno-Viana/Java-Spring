@@ -1,7 +1,6 @@
 package br.bg.project.bankaccount.BankAccount.services;
 
 import br.bg.project.bankaccount.BankAccount.dto.ClientDto;
-import br.bg.project.bankaccount.BankAccount.infra.errors.DuplicateExceptions;
 import br.bg.project.bankaccount.BankAccount.models.Client;
 import br.bg.project.bankaccount.BankAccount.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;

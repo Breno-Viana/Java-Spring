@@ -1,6 +1,6 @@
 package br.bg.project.bankaccount.BankAccount.models;
 
-import br.bg.project.bankaccount.BankAccount.infra.errors.UnexpectedCodeException;
+import br.bg.project.bankaccount.BankAccount.infra.exceptions.errors.UnexpectedCodeException;
 
 public enum ClientType {
     COMMERCIAL('C'),

@@ -1,4 +1,4 @@
-package br.bg.project.bankaccount.BankAccount.infra.errors;
+package br.bg.project.bankaccount.BankAccount.infra.exceptions.errors;
 
 public class UnexpectedCodeException extends RuntimeException {
     public UnexpectedCodeException() {}
