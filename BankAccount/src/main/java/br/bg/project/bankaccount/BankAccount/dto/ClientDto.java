@@ -1,6 +1,7 @@
 package br.bg.project.bankaccount.BankAccount.dto;
 
 
+import br.bg.project.bankaccount.BankAccount.models.enums.Roles;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -12,5 +13,6 @@ public record ClientDto(@NotBlank String firstname,
                         @NotBlank String document,
                         @NotBlank String password,
                         BigDecimal amount,
-                        Character clientType) {
+                        Character clientType,
+                        Roles role) {
 }

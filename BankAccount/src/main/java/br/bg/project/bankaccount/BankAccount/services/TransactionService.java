@@ -5,7 +5,7 @@ import br.bg.project.bankaccount.BankAccount.infra.exceptions.errors.ClientNotFo
 import br.bg.project.bankaccount.BankAccount.infra.exceptions.errors.CommencialAccountException;
 import br.bg.project.bankaccount.BankAccount.infra.exceptions.errors.EqualsClientException;
 import br.bg.project.bankaccount.BankAccount.infra.exceptions.errors.NoBalanceException;
-import br.bg.project.bankaccount.BankAccount.models.ClientType;
+import br.bg.project.bankaccount.BankAccount.models.enums.ClientType;
 import br.bg.project.bankaccount.BankAccount.models.Transactions;
 import br.bg.project.bankaccount.BankAccount.repository.ClientRepository;
 import br.bg.project.bankaccount.BankAccount.repository.TransactionRepository;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class TransactionService {

@@ -40,4 +40,9 @@ public class Exceptions {
     private ResponseEntity<?> NoBalance(){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario nao possui saldo suficiente");
     }
+
+    @ExceptionHandler(ClientAlreadyExistsException.class)
+    private ResponseEntity<?> ClientAlreadyExists(){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ja existe um cliente com esse documento ou email");
+    }
 }

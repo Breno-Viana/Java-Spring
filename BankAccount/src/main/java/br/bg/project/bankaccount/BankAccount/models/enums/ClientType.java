@@ -1,4 +1,4 @@
-package br.bg.project.bankaccount.BankAccount.models;
+package br.bg.project.bankaccount.BankAccount.models.enums;
 
 import br.bg.project.bankaccount.BankAccount.infra.exceptions.errors.UnexpectedCodeException;
 

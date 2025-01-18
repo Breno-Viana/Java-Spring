@@ -2,35 +2,36 @@ package br.bg.project.bankaccount.BankAccount.models;
 
 
 import br.bg.project.bankaccount.BankAccount.dto.ClientDto;
+import br.bg.project.bankaccount.BankAccount.models.enums.ClientType;
+import br.bg.project.bankaccount.BankAccount.models.enums.Roles;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static br.bg.project.bankaccount.BankAccount.models.ClientType.getTypeOfCode;
+import static br.bg.project.bankaccount.BankAccount.models.enums.ClientType.getTypeOfCode;
 
 @Entity
 @Table(name = "tb_client")
 public class Client {
 
 
-    public Client(ClientDto dto) throws Exception{
+    public Client(ClientDto dto,Login login) throws Exception {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.firstName = dto.firstname();
         this.lastName = dto.lastname();
-        this.document=dto.document();
-        this.email=dto.email();
-        this.passWord=dto.password();
-        this.amount=dto.amount();
+        this.document = dto.document();
+        this.email = dto.email();
+        this.passWord = passwordEncoder.encode(dto.password());
+        this.amount = dto.amount();
         setType(dto.clientType());
-        this.login=new Login(dto.email(),dto.password());
+        this.login = login;
     }
 
-    public Client(){}
+    public Client() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -46,8 +47,8 @@ public class Client {
     @Column(unique = true)
     private String document;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name="cl_login")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cl_login")
     private Login login;
 
     @Column(unique = true)
@@ -62,6 +63,8 @@ public class Client {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ClientType type;
+
+
 
     public UUID getId() {
         return id;
@@ -91,13 +94,6 @@ public class Client {
         return document;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassWord() {
-        return passWord;
-    }
 
     public Login getLogin() {
         return login;
@@ -133,7 +129,7 @@ public class Client {
         return type;
     }
 
-    public void setType(Character code) throws Exception{
+    public void setType(Character code) throws Exception {
         type = getTypeOfCode(code);
     }
 }
