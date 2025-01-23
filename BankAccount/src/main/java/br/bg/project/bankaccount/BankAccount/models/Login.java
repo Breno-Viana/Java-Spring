@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -42,7 +43,7 @@ public class Login implements UserDetails {
         this.role=login.getRole();
     }
 
-    private Roles getRole() {
+    public Roles getRole() {
         return  role;
     }
 
@@ -69,8 +70,8 @@ public class Login implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role==Roles.ADMIN) return List.of(new SimpleGrantedAuthority("ADMIN"));
-        else return List.of(new SimpleGrantedAuthority("BASIC"));
+        if (this.role==Roles.ADMIN) return List.of(new SimpleGrantedAuthority(Roles.ADMIN.getRole()),new SimpleGrantedAuthority(Roles.BASIC.getRole()));
+        else return List.of(new SimpleGrantedAuthority(Roles.BASIC.getRole()));
     }
 
     @Override
@@ -81,5 +82,28 @@ public class Login implements UserDetails {
     @Override
     public String getUsername() {
         return login;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Login{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Login login = (Login) o;
+        return Objects.equals(id, login.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

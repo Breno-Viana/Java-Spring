@@ -2,7 +2,7 @@ package br.bg.project.bankaccount.BankAccount.models.enums;
 
 public enum Roles {
     ADMIN("ROLE_ADMIN"),
-    BASIC("ROLE_USER");
+    BASIC("ROLE_BASIC");
 
     private final String role;
 

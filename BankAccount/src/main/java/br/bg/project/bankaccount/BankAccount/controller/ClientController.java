@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("c")
+@RequestMapping("/c")
 public class ClientController {
 
     @Autowired
@@ -26,8 +26,7 @@ public class ClientController {
         return clientService.REGISTER(dto);
     }
 
-    @GetMapping("/l")
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @GetMapping("/admin/all")
     public List<Client> LIST(){
         return clientService.LIST();
     }
