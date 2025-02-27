@@ -2,6 +2,7 @@ package br.com.training.trainingapp.controller;
 
 import br.com.training.trainingapp.dto.RegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class RegisterController {
     RegisterService registerService;
 
 
-    @GetMapping("pegar/listar")
+    @GetMapping(value = "pegar/listar",produces = MediaType.TEXT_XML_VALUE)
     public List<Registers> ListReg() {
         return ListRegisters();
     }

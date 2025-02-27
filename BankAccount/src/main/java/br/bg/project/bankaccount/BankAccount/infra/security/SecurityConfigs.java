@@ -22,7 +22,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
-
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.List;
@@ -43,7 +42,7 @@ public class SecurityConfigs {
     @Bean
     public SecurityFilterChain security(HttpSecurity http) throws Exception {
         return http
-                .oauth2ResourceServer(config -> config.jwt(jwt ->
+                .oauth2ResourceServer(config -> config.jwt(jwtjwt ->
                         jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
