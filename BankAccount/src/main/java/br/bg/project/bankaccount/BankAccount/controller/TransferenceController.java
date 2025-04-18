@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping("t")
 public class TransferenceController {
 
-    @Autowired
-    private TransactionService service;
+    private final TransactionService service;
+
+    public TransferenceController(TransactionService service) {
+        this.service = service;
+    }
 
     @PostMapping("/transfer")
     @Transactional

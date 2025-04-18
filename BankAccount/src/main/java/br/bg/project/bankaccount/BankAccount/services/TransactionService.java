@@ -19,13 +19,18 @@ import java.util.List;
 @Service
 public class TransactionService {
 
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final ClientRepository clientRepository;
+    private final TransactionRepository transactionRepository;
+
+
+
+    public TransactionService(ClientRepository clientRepository, TransactionRepository transactionRepository) {
+        this.clientRepository = clientRepository;
+        this.transactionRepository = transactionRepository;
+    }
 
     public ResponseEntity<Transactions> TRANSFER(TransactionDto dto){
-        ValidadeTransference(dto);
+        ValidateTransference(dto);
 
         var sender = clientRepository.findById(dto.sender()).orElseThrow(ClientNotFoundException::new);
 
@@ -39,7 +44,7 @@ public class TransactionService {
     }
 
 
-    private void ValidadeTransference(TransactionDto dto){
+    private void ValidateTransference(TransactionDto dto){
         var client = clientRepository.findById(dto.sender()).orElseThrow(ClientNotFoundException::new);
         if (client.getType() == ClientType.COMMERCIAL){
             throw new CommencialAccountException();

@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("auth")
 public class LoginController {
 
-    @Autowired
-    private LoginService service;
+    private final LoginService service;
+
+    public LoginController(LoginService service) {
+        this.service = service;
+    }
 
 
     @PostMapping

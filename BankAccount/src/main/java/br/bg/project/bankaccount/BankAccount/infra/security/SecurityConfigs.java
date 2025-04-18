@@ -42,7 +42,7 @@ public class SecurityConfigs {
     @Bean
     public SecurityFilterChain security(HttpSecurity http) throws Exception {
         return http
-                .oauth2ResourceServer(config -> config.jwt(jwtjwt ->
+                .oauth2ResourceServer(config -> config.jwt(jwt ->
                         jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
@@ -70,8 +70,8 @@ public class SecurityConfigs {
     @Bean
     public JwtEncoder encoder() {
         var jwk = new RSAKey.Builder(publicKey).privateKey(privateKey).build();
-        var jwks = new ImmutableJWKSet(new JWKSet(jwk));
-        return new NimbusJwtEncoder(jwks);
+        var gawks = new ImmutableJWKSet(new JWKSet(jwk));
+        return new NimbusJwtEncoder(gawks);
     }
 
 

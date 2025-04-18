@@ -22,14 +22,17 @@ import java.util.stream.IntStream;
 public class MockRunner implements ApplicationRunner {
 
 
-    @Autowired
-    private ClientRepository repository;
+    private final ClientRepository repository;
 
-    @Autowired
-    private ClientController controller;
+    private final ClientController controller;
 
-    @Autowired
-    private LoginRepository loginRepository;
+    private final LoginRepository loginRepository;
+
+    public MockRunner(ClientRepository repository, ClientController controller, LoginRepository loginRepository) {
+        this.repository = repository;
+        this.controller = controller;
+        this.loginRepository = loginRepository;
+    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

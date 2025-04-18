@@ -18,12 +18,14 @@ import java.time.Instant;
 @Service
 public class LoginService implements UserDetailsService {
 
-    @Autowired
-    private LoginRepository repository;
+    private final LoginRepository repository;
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
+    public LoginService(LoginRepository repository, JwtService jwtService) {
+        this.repository = repository;
+        this.jwtService = jwtService;
+    }
 
 
     @Override

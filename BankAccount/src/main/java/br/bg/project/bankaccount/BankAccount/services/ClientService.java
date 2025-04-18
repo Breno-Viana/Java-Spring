@@ -17,12 +17,20 @@ import java.util.List;
 @Service
 public class ClientService {
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
 
-    @Autowired
     private PasswordEncoder encoder;
+
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
+
+    @Autowired
+    public ClientService(ClientRepository clientRepository, PasswordEncoder encoder) {
+        this.clientRepository = clientRepository;
+        this.encoder = encoder;
+    }
 
 
     public ResponseEntity<Client> REGISTER(ClientDto dto) throws Exception {

@@ -19,12 +19,15 @@ import java.util.stream.Collectors;
 @Service
 public class JwtService {
 
-    @Autowired
-    private JwtEncoder encoder;
+    private final JwtEncoder encoder;
 
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
+
+    public JwtService(JwtEncoder encoder, ClientRepository clientRepository) {
+        this.encoder = encoder;
+        this.clientRepository = clientRepository;
+    }
 
 
     public String generateToken(Authentication authentication) {
